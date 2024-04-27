@@ -1,0 +1,6 @@
+company_name,ticker,start_date,end_date,book_value,book_to_share_value,earnings_per_share,debt_ratio,current_ratio,dividend_yield_ratio,start_open,start_close,start_high,end_open,end_close,end_high
+senesco technologies inc,SNT,2013-04-01,2013-06-30,3786067.0,,,0.4665811088801966,1.0963815660432223,,,,,,,
+senesco technologies inc,SNT,2012-07-01,2012-09-30,2629417.0,,,0.5799750644753436,0.8066031654754979,,,,,,,
+senesco technologies inc,SNT,2012-01-01,2012-03-31,4599006.0,,,0.4673736994594875,1.399036046090674,,,,,,,
+senesco technologies inc,SNT,2011-10-01,2011-12-31,2833283.0,,,0.5868118800792052,0.9317510588020842,,,,,,,
+senesco technologies inc,SNT,2011-07-01,2011-09-30,3933130.0,,,0.5245074861905604,1.2282562262405827,,,,,,,

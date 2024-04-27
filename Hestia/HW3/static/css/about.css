@@ -1,0 +1,144 @@
+.about,
+.about * {
+  box-sizing: border-box;
+}
+.about {
+  background: #deb887;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+}
+.about-outline {
+  background: #d2b48c;
+  width: 1577px;
+  height: 963px;
+  position: absolute;
+  left: 195px;
+  top: 102px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+}
+.rectangle-1 {
+  width: 1152px;
+  height: 932px;
+  position: absolute;
+  left: 0px;
+  top: 10px;
+  overflow: visible;
+}
+.about-frame {
+  padding: 0px 122px 0px 122px;
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+  align-items: center;
+  justify-content: center;
+  height: 922px;
+  position: absolute;
+  left: calc(50% - 350.5px);
+  top: calc(50% - 470.5px);
+  overflow: hidden;
+}
+.about2 {
+  color: #333333;
+  text-align: center;
+  font-family: "Inter-Thin", sans-serif;
+  font-size: 60px;
+  font-weight: 100;
+  position: relative;
+  width: 457px;
+  height: 88px;
+}
+.this-is-an-about-me-place-holder {
+  color: #000000;
+  text-align: center;
+  font-family: "Inter-Thin", sans-serif;
+  font-size: 30px;
+  font-weight: 100;
+  position: relative;
+  width: 436px;
+  height: 131px;
+}
+.nav-bar-grou-p {
+  width: 1920px;
+  height: 102px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  backdrop-filter: blur(2px);
+}
+.navigation-bar {
+  background: #cdb79e;
+  border-radius: 0px 0px 45px 45px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 0%;
+  height: 100%;
+  overflow: hidden;
+}
+.frame-3 {
+  padding: 0px 7px 0px 7px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.icons-8-door-sensor-alarmed-1 {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  position: relative;
+  object-fit: cover;
+}
+.frame-6 {
+  background: #ffe4b5;
+  border-style: solid;
+  border-color: #8b4513;
+  border-width: 0px 1px 0px 1px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+}
+.icons-8-book-1 {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  position: relative;
+  object-fit: cover;
+}
+.frame-7 {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+}
+.icons-8-medium-risk-1 {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  object-fit: cover;
+}

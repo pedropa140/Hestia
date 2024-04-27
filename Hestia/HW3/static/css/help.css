@@ -1,0 +1,135 @@
+.help,
+.help * {
+  box-sizing: border-box;
+}
+.help {
+  background: #deb887;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-9 {
+  background: #d2b48c;
+  width: 1544px;
+  height: 1089px;
+  position: absolute;
+  left: calc(50% - 772px);
+  top: calc(50% - 567px);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+}
+.frame-8 {
+  background: #d2b48c;
+  padding: 0px 122px 0px 122px;
+  width: 1620px;
+  height: 922px;
+  position: absolute;
+  left: calc(50% - 810px);
+  top: calc(50% - 460.5px);
+  overflow: hidden;
+}
+.help2 {
+  color: #333333;
+  text-align: center;
+  font-family: "Inter-Thin", sans-serif;
+  font-size: 60px;
+  font-weight: 100;
+  position: absolute;
+  left: 581px;
+  top: 117px;
+  width: 457px;
+  height: 88px;
+}
+.video-help {
+  width: 911px;
+  height: 530px;
+  position: absolute;
+  left: 354px;
+  top: 267px;
+}
+.nav-bar-grou-p {
+  width: 1920px;
+  height: 102px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  backdrop-filter: blur(2px);
+}
+.navigation-bar {
+  background: #cdb79e;
+  border-radius: 0px 0px 45px 45px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 0%;
+  height: 100%;
+  overflow: hidden;
+}
+.frame-3 {
+  padding: 0px 7px 0px 7px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.icons-8-door-sensor-alarmed-1 {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  position: relative;
+  object-fit: cover;
+}
+.frame-6 {
+  border-style: solid;
+  border-color: #8b4513;
+  border-width: 0px 0px 0px 1px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+}
+.icons-8-book-1 {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  position: relative;
+  object-fit: cover;
+}
+.frame-7 {
+  background: #ffe4b5;
+  border-style: solid;
+  border-color: #8b4513;
+  border-width: 0px 1px 0px 1px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+}
+.icons-8-medium-risk-1 {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  object-fit: cover;
+}

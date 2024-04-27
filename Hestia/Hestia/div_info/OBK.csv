@@ -1,0 +1,3 @@
+company_name,ticker,start_date,end_date,book_value,book_to_share_value,earnings_per_share,debt_ratio,current_ratio,dividend_yield_ratio,start_open,start_close,start_high,end_open,end_close,end_high
+"origin bancorp, inc.",OBK,2023-07-01,2023-09-30,998945000.0,32.37373572224256,0.7879339068866487,0.897368344538334,1.1143695964832219,-0.4853638910583695,30.09,29.23,29.3,28.71,28.69,28.87
+"origin bancorp, inc.",OBK,2023-04-01,2023-06-30,997859000.0,32.40707136477114,0.7066908981102741,0.9018354157232894,-10.186973309856402,,,,,29.47,29.47,29.89

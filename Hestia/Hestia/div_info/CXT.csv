@@ -1,0 +1,3 @@
+company_name,ticker,start_date,end_date,book_value,book_to_share_value,earnings_per_share,debt_ratio,current_ratio,dividend_yield_ratio,start_open,start_close,start_high,end_open,end_close,end_high
+"crane nxt, co.",CXT,2023-07-01,2023-09-30,872600000.0,15.362676056338028,0.9137323943661971,0.583305477293348,2.0,-0.041169715953760955,56.79,56.39,56.44,56.15,55.29,55.57
+"crane nxt, co.",CXT,2023-04-01,2023-06-30,855200000.0,15.056338028169014,0.7605633802816901,0.6103872437357631,2.2126853897128433,,,,,55.44,55.44,56.44

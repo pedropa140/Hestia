@@ -11,6 +11,61 @@
     <title>Hestia - Dividend Information</title>
 </head>
 <body>
-    <h1>DIVIDEND</h1>
+    <div class="ticker_info">
+
+    </div>
+    <div class="search_bar">
+        <form id="message-form" class="message-form">
+            <input type="text" id="user-input" class="message-input" placeholder="Enter a Stock Ticker">
+            <button type="submit" class="send-button">↑</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.getElementById('message-form');
+            const userInput = document.getElementById('user-input');
+            const messagesDiv = document.getElementById('messages');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); 
+                const userMessage = userInput.value.trim();
+                if (userMessage === '') return; 
+                displayMessage(userMessage, 'user-message');
+                fetch('/send-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: userMessage })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    displayMessage(data.message, 'bot-message');
+                    messagesDiv.dataset.chatHistory = JSON.stringify(data.chat_history);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+                userInput.value = '';
+            });
+
+            function displayMessage(message, className) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', className);
+                // Instead of setting textContent, set innerHTML to render HTML
+                messageDiv.innerHTML = message;
+                messagesDiv.appendChild(messageDiv);
+
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+
+            const initialChatHistory = JSON.parse(messagesDiv.dataset.chatHistory || '[]');
+
+            initialChatHistory.forEach(({ role, parts }) => {
+                // Instead of joining parts with space, render them individually
+                parts.forEach(part => displayMessage(part, role === 'user' ? 'user-message' : 'bot-message'));
+            });
+        });
+    </script>
 </body>
 </html>

@@ -80,3 +80,10 @@ Company Financial Info:
 Should have a graph tracking all the ratios (book_to_share_value,earnings_per_share,debt_ratio, current_ratio)
 Read Me Hello ## Context A "ticker" is...
 show full
+
+## How to run
+1. Create your .venv environment through the VSCode interface or terminal.
+2. Install are requirements from `requirements.txt`.
+3. Change to the `application` directory.
+4. Apply necessary migrations with `py manage.py migrate`
+5. Start the development server with `py manage.py runserver`

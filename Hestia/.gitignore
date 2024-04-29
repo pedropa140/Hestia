@@ -1,0 +1,6 @@
+.venv/
+env/
+**/Lib
+**/node_modules
+**/Scripts
+**/_pycache_

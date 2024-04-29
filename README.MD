@@ -82,8 +82,9 @@ Read Me Hello ## Context A "ticker" is...
 show full
 
 ## How to run
+
 1. Create your .venv environment through the VSCode interface or terminal.
 2. Install are requirements from `requirements.txt`.
 3. Navigate to the `application` directory from the current root.
-4. Apply necessary migrations with `py manage.py migrate`
-5. Start the development server with `py manage.py runserver`
+4. Apply necessary migrations with `py manage.py migrate`.
+5. Start the development server with `py manage.py runserver`.

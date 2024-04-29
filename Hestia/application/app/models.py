@@ -1,18 +1,8 @@
 from django.db import models
 
-
-# class TickerData(models.Model):
-#     # Define your TickerData model fields here
-#     ticker_symbol = models.CharField(max_length=10)
-#     company_name = models.CharField(max_length=100)
-#     # Add more fields as needed
-    
-# TODO: Add actual TickerData fields
-class TickerData(models.Model):
-    # Define your TickerData model fields here
+class Company(models.Model):
     company_name = models.CharField(max_length=100)
     ticker = models.CharField(max_length=4)
-    # Add more fields as needed
     book_value = models.FloatField()
     book_to_share_value = models.FloatField()
     earning_per_share = models.FloatField()
@@ -28,5 +18,6 @@ class TickerData(models.Model):
     end_close = models.FloatField()
     end_high = models.FloatField()
     end_low = models.FloatField()
-    
 
+class TickerData(models.Model):
+    companies = models.ManyToManyField(Company)

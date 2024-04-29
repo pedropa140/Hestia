@@ -15,16 +15,16 @@ class QuarterlyReport:
         self.comprehensive_income = data['financials'].get('comprehensive_income', {})
 
     def set_start_prices(self, openS, highS, lowS, closeS):
-    	self.s_open = openS
-    	self.s_close = closeS
-    	self.s_low = lowS
-    	self.s_high = highS
+        self.s_open = openS
+        self.s_close = closeS
+        self.s_low = lowS
+        self.s_high = highS
 
     def set_end_prices(self, openE, highE, lowE, closeE):
-    	self.e_open = openE
-    	self.e_close = closeE
-    	self.e_low = lowE
-    	self.e_high = highE
+        self.e_open = openE
+        self.e_close = closeE
+        self.e_low = lowE
+        self.e_high = highE
 
     def safe_get_value(self, key_chain):
         try:
@@ -82,8 +82,8 @@ class QuarterlyReport:
         if np.isnan(annual_dividends) or np.isnan(basic_shares) or basic_shares == 0 or market_price_per_share == 0:
             self.dividend_yield_ratio = np.nan
         else: 
-        	annual_dividends_per_share = annual_dividends / basic_shares
-        	self.dividend_yield_ratio = annual_dividends_per_share / market_price_per_share
+            annual_dividends_per_share = annual_dividends / basic_shares
+            self.dividend_yield_ratio = annual_dividends_per_share / market_price_per_share
 
        	
 

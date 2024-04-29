@@ -24,5 +24,17 @@ def read_div():
                     info_list.append(line[-15:])
     return info_list
 
+def ticker_with_div():
+    directory = './stockdata/tickers_with_dividends.csv'
+    result = {}
+    with open(directory, "r") as file:
+        info_file = file.readlines()
+        for info in info_file:
+            info = info.replace("\"", "").replace("\n", "").split(',')
+            if info[0] not in result:
+                result[info[0]] = "".join(info[1:])
+    return result
+
+
 if __name__ == '__main__':
-    print(read_div())
+    print(ticker_with_div())

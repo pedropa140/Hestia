@@ -4,3 +4,4 @@ env/
 **/node_modules
 **/Scripts
 **/__pycache__
+**/db.sqlite3

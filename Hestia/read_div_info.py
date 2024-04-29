@@ -14,7 +14,6 @@ def read_div():
     if check_folder(directory):
 
         div_info_files = os.listdir(directory)
-        info = []
         for filename in div_info_files:
             with open(directory + filename, 'r') as file:
             # with open(directory + 'WSFS.csv', 'r') as file:

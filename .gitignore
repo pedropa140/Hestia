@@ -3,4 +3,4 @@ env/
 **/Lib
 **/node_modules
 **/Scripts
-**/_pycache_
+**/__pycache__

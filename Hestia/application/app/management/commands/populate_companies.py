@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 from app.models import CompanyTicker
-from scripts.read_div_info import ticker_with_div
+from _scripts_.read_div_info import ticker_with_div
 
 class Command(BaseCommand):
     help = 'Populate CompanyTicker model with data from tickers_with_dividends.csv'

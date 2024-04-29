@@ -84,5 +84,7 @@ Company Financial Info: Should have a graph tracking all the ratios (book_to_sha
 1. Create your .venv environment through the VSCode interface or terminal.
 2. Install are requirements from `requirements.txt`.
 3. Navigate to the `application` directory from the current root.
-4. Apply necessary migrations with `py manage.py migrate`.
-5. Start the development server with `py manage.py runserver`.
+4. Create migrations with `py manage.py makemigrations app`.
+5. Apply necessary migrations with `py manage.py migrate`.
+6. Populate companies table with `py manage.py populate_companies`.
+7. Start the development server with `py manage.py runserver`.

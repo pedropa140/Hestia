@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .models import TickerData
-import json
 from django.http import JsonResponse
 def indexHelp(request):
 
@@ -17,13 +16,14 @@ def indexMain(request):
     # Pass the context along with the template
     return render(request, "main.html")
 
+def indexCompany(request):
+    
+    # Pass the context along with the template
+    return render(request, "company.html")
+
 def indexDividend(request):
     
     # Pass the context along with the template
     return render(request, "dividend.html")
-
-def indexMainData(request):
-    print(TickerData.objects.values())
-    return JsonResponse(list(TickerData.objects.values()), safe=False)
 
 

@@ -5,12 +5,12 @@ class CompanyTicker(models.Model):
     ticker = models.CharField(max_length=4, default='TICK', primary_key=True)
 
     def __str__(self):
-        return f'{self.company} ({self.tick})'
+        return f'{self.company_name} ({self.ticker})'
     
 class TickerData(models.Model):
-    ticker = models.ForeignKey(CompanyTicker, related_name='ticker_data', default='TICK', on_delete=models.CASCADE)
-    company_name = models.ForeignKey(CompanyTicker, related_name='company_data', default='Unknown', on_delete=models.CASCADE)
-    start_date = models.DateField(default='1900-01-01', primary_key=True)
+    ticker = models.CharField(max_length=4, default='TICK')
+    company_name = models.CharField(max_length=100, default='Unknown')
+    start_date = models.DateField(default='1900-01-01')
     end_date = models.DateField(default='1900-01-01')
     book_value = models.FloatField(default=-1.0)
     book_to_share_value = models.FloatField(default=-1.0)
@@ -27,3 +27,4 @@ class TickerData(models.Model):
     end_high = models.FloatField(default=-1.0)
     end_low = models.FloatField(default=-1.0)
     volume = models.FloatField(default=-1.0)
+    id = models.AutoField(primary_key=True)

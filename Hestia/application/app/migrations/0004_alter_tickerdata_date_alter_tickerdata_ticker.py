@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='tickerdata',
-            name='date',
+            name='start_date',
             field=models.BigIntegerField(primary_key=True, serialize=False),
         ),
         migrations.AlterField(

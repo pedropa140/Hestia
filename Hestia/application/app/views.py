@@ -66,29 +66,27 @@ def get_company_tickers(request):
 
 def get_ticker_data(request, ticker):
     try:
-        ticker_data = TickerData.objects.get(ticker=ticker)
-        data = {
-            'ticker': ticker_data.ticker,
-            'company_name': ticker_data.company_name,
-            'start_date': ticker_data.start_date.strftime('%Y-%m-%d'),
-            'end_date': ticker_data.end_date.strftime('%Y-%m-%d'),
-            'book_value': ticker_data.book_value,
-            'book_to_share_value': ticker_data.book_to_share_value,
-            'earnings_per_share': ticker_data.earnings_per_share,
-            'debt_ratio': ticker_data.debt_ratio,
-            'current_ratio': ticker_data.current_ratio,
-            'end_open': ticker_data.end_open,
-            'dividend_yield': ticker_data.dividend_yield,
-            'start_open': ticker_data.start_open,
-            'start_close': ticker_data.start_close,
-            'start_high': ticker_data.start_high,
-            'start_low': ticker_data.start_low,
-            'end_close': ticker_data.end_close,
-            'end_high': ticker_data.end_high,
-            'end_low': ticker_data.end_low,
-            'volume': ticker_data.volume,
-        }
-        return JsonResponse(data)
+        ticker_data = TickerData.objects.filter(ticker=ticker)
+        data = []
+        for data_point in ticker_data:
+            data.append({
+                'ticker': data_point.ticker,
+                'company_name': data_point.company_name,
+                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
+                'end_date': data_point.end_date.strftime('%Y-%m-%d'),
+                'book_value': data_point.book_value,
+                'book_to_share': data_point.book_to_share_value,
+                'earnings_per_share': data_point.earnings_per_share,
+                'debt_ratio': data_point.debt_ratio,
+                'current_ratio': data_point.current_ratio,
+                'dividend_yield': data_point.dividend_yield,
+                'start_open': data_point.start_open,
+                'start_high': data_point.start_high,
+                'end_open': data_point.end_open,
+                'end_close': data_point.end_close,
+                'end_high': data_point.end_high,
+            })
+        return JsonResponse(data, safe=False)
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 

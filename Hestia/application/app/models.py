@@ -8,8 +8,8 @@ class CompanyTicker(models.Model):
         return f'{self.company} ({self.tick})'
     
 class TickerData(models.Model):
-    ticker = models.ForeignKey(CompanyTicker, related_name='ticker_data', on_delete=models.CASCADE)
-    company_name = models.ForeignKey(CompanyTicker, related_name='company_data', on_delete=models.CASCADE)
+    ticker = models.ForeignKey(CompanyTicker, related_name='ticker_data', default='TICK', on_delete=models.CASCADE)
+    company_name = models.ForeignKey(CompanyTicker, related_name='company_data', default='Unknown', on_delete=models.CASCADE)
     start_date = models.DateField(default='1900-01-01', primary_key=True)
     end_date = models.DateField(default='1900-01-01')
     book_value = models.FloatField(default=-1.0)

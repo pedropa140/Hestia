@@ -5,6 +5,7 @@ from django.core.management import BaseCommand
 from django.apps import apps
 from django.db import models
 from django.db import connection
+from django.db.utils import OperationalError
 from app.models import TickerData, CompanyTicker  # Import your models from the 'app' module
 
 def create_dynamic_model(ticker_symbol):
@@ -52,9 +53,21 @@ class Command(BaseCommand):
             apps.all_models['app'][f'DynamicTickerData_{ticker_symbol}'] = dynamic_model
 
             # print(f'Processing {csv_file}...')
-            # Run migrations to create the table
-            with connection.schema_editor() as schema_editor:
-                schema_editor.create_model(dynamic_model)
+            # Assuming dynamic_model is already defined
+            table_name = dynamic_model._meta.db_table
+
+            # Check if the table exists
+            try:
+                with connection.cursor() as cursor:
+                    cursor.execute(f"SELECT 1 FROM {table_name} LIMIT 1")
+                table_exists = True
+            except OperationalError:
+                table_exists = False
+
+            # If the table doesn't exist, create it
+            if not table_exists:
+                with connection.schema_editor() as schema_editor:
+                    schema_editor.create_model(dynamic_model)
                 
             # Now, let's read the CSV file and create TickerData instances
             with open(csv_file, 'r') as file:

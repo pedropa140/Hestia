@@ -44,7 +44,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         csv_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../stockdata/div_info'))
         csv_files = [f for f in os.listdir(csv_dir) if f.endswith('.csv')]
-
+        
         for csv_file in csv_files:
             ticker_symbol = os.path.splitext(csv_file)[0]  # Extract ticker symbol from file name
             dynamic_model = create_dynamic_model(ticker_symbol)
@@ -68,13 +68,15 @@ class Command(BaseCommand):
             if not table_exists:
                 with connection.schema_editor() as schema_editor:
                     schema_editor.create_model(dynamic_model)
-                
+            
+            csv_file_path = os.path.join(csv_dir, csv_file)
+            
             # Now, let's read the CSV file and create TickerData instances
-            with open(csv_file, 'r') as file:
+            with open(csv_file_path, 'r') as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                 # Assuming CSV columns are named similarly to TickerData fields
-                    company_ticker = CompanyTicker.objects.get(ticker=row['ticker'])
+                    ticker = CompanyTicker.objects.get(ticker=row['ticker'])
                     start_date = datetime.strptime(row['start_date'], '%Y-%m-%d').date()
 
                     
@@ -82,8 +84,8 @@ class Command(BaseCommand):
 
                     # Create TickerData instance
                     ticker_data = TickerData(
-                        ticker=company_ticker,
-                        company_name = CompanyTicker.objects.get(ticker=company_ticker).company_name,  # Assuming company_name is the same as ticker
+                        ticker=ticker,
+                        company_name = CompanyTicker.objects.get(ticker=ticker).company_name,  # Assuming company_name is the same as ticker
                         start_date=start_date,
                         end_date=datetime.strptime(row['end_date'], '%Y-%m-%d').date(),
                         book_value=float(row['book_value']),

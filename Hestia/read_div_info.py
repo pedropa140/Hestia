@@ -1,4 +1,5 @@
 import os
+import csv
 
 def check_folder(directory):
     folder_path = os.path.join(directory)
@@ -8,7 +9,8 @@ def check_folder(directory):
         return False
 
 def read_div():
-    directory = './stockdata/div_info/'
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    directory = os.path.join(current_dir, './stockdata/div_info/')
     
     info_list = []
     if check_folder(directory):
@@ -21,11 +23,13 @@ def read_div():
                 lines = file.readlines()
                 for line in lines:
                     line = line.replace('\n', '').replace('\"', '').split(',')
-                    info_list.append(line[-15:])
+                    info_list.append(line)
+
     return info_list
 
 def ticker_with_div():
-    directory = './stockdata/tickers_with_dividends.csv'
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    directory = os.path.join(current_dir, './stockdata/tickers_with_dividends.csv')
     result = {}
     with open(directory, "r") as file:
         info_file = file.readlines()
@@ -37,4 +41,38 @@ def ticker_with_div():
 
 
 if __name__ == '__main__':
-    print(ticker_with_div())
+    # print(ticker_with_div())
+    ticker = ticker_with_div()
+    div = read_div()
+    differences = {}
+    for d in div:
+        oof = d[-15:]
+        if oof[0] not in ticker and oof[0] not in differences:
+            # differences.append(d[0])
+            differences[oof[0]] = d[:-15]
+    print(differences)
+    print(len(differences))
+    
+    # current_dir = os.path.dirname(os.path.realpath(__file__))
+    # directory = os.path.join(current_dir, './stockdata/tickers_with_dividends.csv')
+    # with open(directory, 'a') as file:
+    #     for d in differences:
+    #         writer = csv.writer(file)
+    #         writer.writerow([d[0], d[1:]])
+    def capitalize_words(s):
+    # Split the string into words
+        words = s.split()
+
+        # Capitalize the first letter of each word
+        capitalized_words = [word.capitalize() for word in words]
+
+        # Join the capitalized words back into a single string
+        return ' '.join(capitalized_words)
+    
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    directory = os.path.join(current_dir, './stockdata/tickers_with_dividends.csv')
+    with open(directory, 'a', newline='') as file:
+        for d in differences:
+            string = "".join(differences[d])
+            writer = csv.writer(file)
+            writer.writerow([d, capitalize_words(string)])

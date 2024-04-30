@@ -24,7 +24,7 @@ def indexCompany(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'company.html', {'page_obj': page_obj})
+    return render(request, 'companies.html', {'page_obj': page_obj})
 
 
 def indexDividend(request):

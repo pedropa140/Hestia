@@ -115,10 +115,11 @@ class Command(BaseCommand):
         csv_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../stockdata/div_info'))
         csv_files = [f for f in os.listdir(csv_dir) if f.endswith('.csv')]
         csv_file_paths = [os.path.join(csv_dir, f) for f in csv_files]
-        with ThreadPoolExecutor(max_workers=5) as executor:  # Adjust max_workers as needed
-            futures = [executor.submit(process_csv_file, csv_file_path) for csv_file_path in csv_file_paths]
+        
+        # Process each CSV file sequentially
+        for csv_file_path in csv_file_paths:
+            print(csv_file_path)
+            process_csv_file(csv_file_path)
 
-            for future in futures:
-                future.result()  # Wait for all threads to complete
                         
                     

@@ -6,7 +6,5 @@ env/
 **/__pycache__
 **/db.sqlite3
 **/db.sqlite3-journal
-**/0005_companyticker_remove_tickerdata_date_and_more.py
-**/0005_*
-Hestia/application/app/migrations/0006_alter_tickerdata_company_name_and_more.py
-Hestia/application/app/migrations/0006_tickerdata_id_alter_tickerdata_start_date.py
+**/000[0-9]_*
+**/0001_*

@@ -27,4 +27,4 @@ class TickerData(models.Model):
     end_high = models.FloatField(default=-1.0)
     end_low = models.FloatField(default=-1.0)
     volume = models.FloatField(default=-1.0)
-    id = models.AutoField(primary_key=True, default=0)
+    id = models.AutoField(primary_key=True)

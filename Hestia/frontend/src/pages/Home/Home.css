@@ -1,8 +1,11 @@
 .home-app {
     background-color: gray;
     width: auto;
-    height: max-content;
+    height: 100vh;
+    overflow-y: hidden;
     display: flex;
     flex-direction: column;
-    padding: 30px;
+    padding: 40px;
+    align-items: center;
+    justify-content: center;
 }

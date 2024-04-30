@@ -1,4 +1,4 @@
 export interface ticker {
-    name: string;
+    ticker: string;
     company: string;
 }

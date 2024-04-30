@@ -12,7 +12,7 @@ const router = createBrowserRouter([
         element: <Home />,
     },
     {
-        path: "/roles",
+        path: "/ticker/:name",
     },
 ]);
 root.render(

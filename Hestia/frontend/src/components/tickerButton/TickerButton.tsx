@@ -4,7 +4,7 @@ import "./TickerButton.css";
 function TickerButton({ ticker, index }: { ticker: ticker; index: number }) {
     return (
         <tr className={"Ticker-Button" + (index % 2 === 0 ? "" : " odd")}>
-            <th>{ticker.name}</th>
+            <th>{ticker.ticker}</th>
             <th>{ticker.company}</th>
         </tr>
     );

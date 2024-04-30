@@ -8,5 +8,6 @@ urlpatterns = [
     path('company', views.indexCompany, name='company'),
     path('companies', views.indexCompanies, name='companies'),
     path('api/tickers/', views.get_company_tickers, name='get_company_tickers'),
-
+    path('api/ticker-data/<str:ticker>/', views.get_ticker_data, name='get_ticker_data'),
+    path('api/csv/<str:ticker>/', views.DownloadCSV.as_view(), name='download_csv'),
 ]

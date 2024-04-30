@@ -1,0 +1,19 @@
+.Ticker-Button {
+    /* padding: 10px; */
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.Ticker-Button.odd {
+    /* padding: 10px; */
+    background-color: rgb(78, 78, 78);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.Ticker-Button.odd:hover {
+    /* padding: 10px; */
+    background-color: rgb(78, 78, 78);
+    cursor: pointer;
+}
+.Ticker-Button:hover {
+    background-color: rgb(71, 71, 71);
+}

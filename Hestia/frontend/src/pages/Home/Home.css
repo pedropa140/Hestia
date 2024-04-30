@@ -1,0 +1,8 @@
+.home-app {
+    background-color: gray;
+    width: auto;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}

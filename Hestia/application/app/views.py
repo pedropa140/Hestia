@@ -56,4 +56,7 @@ def indexDividend(request):
     # Pass the context along with the template
     return render(request, "dividend.html")
 
-
+def get_company_tickers(request):
+    company_tickers = CompanyTicker.objects.all()
+    data = [{'ticker': ticker.ticker, 'company': ticker.company_name} for ticker in company_tickers]
+    return JsonResponse(data)

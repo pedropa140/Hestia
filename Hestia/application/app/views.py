@@ -62,7 +62,7 @@ def indexDividend(request):
 def get_company_tickers(request):
     company_tickers = CompanyTicker.objects.all()
     data = [{'ticker': ticker.ticker, 'company': ticker.company_name} for ticker in company_tickers]
-    return JsonResponse(data)
+    return JsonResponse(data, safe=False)
 
 def get_ticker_data(request, ticker):
     try:

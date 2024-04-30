@@ -84,7 +84,17 @@ Company Financial Info: Should have a graph tracking all the ratios (book_to_sha
 1. Create your .venv environment through the VSCode interface or terminal.
 2. Install all requirements from `requirements.txt`.
 3. Navigate to the `application` directory from the current root.
+
+### Setup Backend
+
 4. Create migrations with `py manage.py makemigrations app`.
 5. Apply necessary migrations with `py manage.py migrate`.
-6. Populate companiesticker table with `py manage.py populate_companies`.
-7. Start the development server with `py manage.py runserver`.
+6. Populate CompanyTicker table with `py manage.py populate_companies`.
+7. Populate TickerData table with CSVs `py manage.py process_csv_files`.
+8. Start the development server with `py manage.py runserver`.
+
+### Setup Frontend
+
+9. Navigate to `frontend` directory.
+10. Install necessary package `npm install`
+11. Run frontend `npm start`

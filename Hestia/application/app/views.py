@@ -1,7 +1,10 @@
+import os
+from django.conf import settings
 from django.shortcuts import render
+from django.views import View
 from .models import CompanyTicker, TickerData
 from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -56,4 +59,45 @@ def indexDividend(request):
     # Pass the context along with the template
     return render(request, "dividend.html")
 
+def get_company_tickers(request):
+    company_tickers = CompanyTicker.objects.all()
+    data = [{'ticker': ticker.ticker, 'company': ticker.company_name} for ticker in company_tickers]
+    return JsonResponse(data, safe=False)
 
+def get_ticker_data(request, ticker):
+    try:
+        ticker_data = TickerData.objects.filter(ticker=ticker)
+        data = []
+        for data_point in ticker_data:
+            data.append({
+                'ticker': data_point.ticker,
+                'company_name': data_point.company_name,
+                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
+                'end_date': data_point.end_date.strftime('%Y-%m-%d'),
+                'book_value': data_point.book_value,
+                'book_to_share': data_point.book_to_share_value,
+                'earnings_per_share': data_point.earnings_per_share,
+                'debt_ratio': data_point.debt_ratio,
+                'current_ratio': data_point.current_ratio,
+                'dividend_yield': data_point.dividend_yield,
+                'start_open': data_point.start_open,
+                'start_high': data_point.start_high,
+                'end_open': data_point.end_open,
+                'end_close': data_point.end_close,
+                'end_high': data_point.end_high,
+            })
+        return JsonResponse(data, safe=False)
+    except TickerData.DoesNotExist:
+        return JsonResponse({'error': 'Ticker data not found'}, status=404)
+
+class DownloadCSV(View):
+    def get(self, request, ticker):
+        
+        file_path = os.path.join(settings.BASE_DIR, '../../stockdata/div_info', f'{ticker}.csv')
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as csv_file:
+                response = HttpResponse(csv_file.read(), content_type='text/csv')
+                response['Content-Disposition'] = f'attachment; filename="{ticker}.csv"'
+                return response
+        else:
+            return HttpResponse('CSV file not found', status=404)

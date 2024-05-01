@@ -4,7 +4,7 @@ Hello
 
 ## How to run
 
-1. Create your .venv environment through the VSCode interface or terminal.
+1. Create your `.venv` environment through the VSCode interface or terminal.
 2. Install all requirements from `requirements.txt`.
 
 ### Setup Backend

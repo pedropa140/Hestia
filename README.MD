@@ -16,9 +16,9 @@ Hello
 
 ### Setup Frontend
 
-9. Navigate to `frontend` directory.
-10. Install necessary package `npm install`
-11. Run frontend `npm start`
+7. Navigate to `frontend` directory.
+8. Install necessary package `npm install`
+9. Run frontend `npm start`
 
 ## Context
 

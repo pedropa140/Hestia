@@ -2,6 +2,23 @@ Read Me
 
 Hello
 
+## How to run
+
+1. Create your `.venv` environment through the VSCode interface or terminal.
+2. Install all requirements from `requirements.txt`.
+
+### Setup Backend
+
+3. Navigate to the `application` directory from the current root.
+4. Setup database/backend with `py manage.py setup_db` following any necessary instructions.
+5. Start the development server with `py manage.py runserver`.
+
+### Setup Frontend
+
+6. Navigate to the `frontend` directory.
+7. Install any necessary packages using `npm install`.
+8. Run frontend with `npm start`.
+
 ## Context
 
 A "ticker" is a unique symbol or abbreviation used to identify a publicly traded company's stock on a stock exchange. Each publicly traded company is assigned a specific ticker symbol, which is used to easily reference and trade that company's stock.
@@ -78,23 +95,3 @@ Dividend Info: For dividend data we just need to plot the dividend yield ratio a
 Company Financial Info: company_name,ticker,start_date,end_date,book_value,book_to_share_value,earnings_per_share,debt_ratio,current_ratio, start_open,start_close,start_high,end_open,end_close,end_high
 
 Company Financial Info: Should have a graph tracking all the ratios (book_to_share_value,earnings_per_share,debt_ratio, current_ratio)
-
-## How to run
-
-1. Create your .venv environment through the VSCode interface or terminal.
-2. Install all requirements from `requirements.txt`.
-3. Navigate to the `application` directory from the current root.
-
-### Setup Backend
-
-4. Create migrations with `py manage.py makemigrations app`.
-5. Apply necessary migrations with `py manage.py migrate`.
-6. Populate CompanyTicker table with `py manage.py populate_companies`.
-7. Populate TickerData table with CSVs `py manage.py process_csv_files`.
-8. Start the development server with `py manage.py runserver`.
-
-### Setup Frontend
-
-9. Navigate to `frontend` directory.
-10. Install necessary package `npm install`
-11. Run frontend `npm start`

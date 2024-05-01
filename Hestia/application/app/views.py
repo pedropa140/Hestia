@@ -66,6 +66,7 @@ def get_company_tickers(request):
 
 def get_ticker_data(request, ticker):
     try:
+        ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)
         data = []
         for data_point in ticker_data:
@@ -92,8 +93,8 @@ def get_ticker_data(request, ticker):
 
 class DownloadCSV(View):
     def get(self, request, ticker):
-        
-        file_path = os.path.join(settings.BASE_DIR, '../../stockdata/div_info', f'{ticker}.csv')
+        ticker = ticker.upper()
+        file_path = os.path.join(settings.BASE_DIR, '../stockdata/div_info', f'{ticker}.csv')
         if os.path.exists(file_path):
             with open(file_path, 'rb') as csv_file:
                 response = HttpResponse(csv_file.read(), content_type='text/csv')

@@ -9,3 +9,4 @@ env/
 **/000[0-9]_*
 **/0001_*
 **/processed_tickers.txt
+**/package-lock.json

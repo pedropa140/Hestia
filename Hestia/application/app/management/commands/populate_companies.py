@@ -1,11 +1,15 @@
 from django.core.management import BaseCommand
 from app.models import CompanyTicker
-from _scripts_.read_div_info import ticker_with_div
+from _scripts_.read_div_info import read_csv_multithreaded 
+from concurrent.futures import ThreadPoolExecutor
+
+
 
 class Command(BaseCommand):
-    help = 'Populate CompanyTicker model with data from tickers_with_dividends.csv'
-
     def handle(self, *args, **kwargs):
-        tickers_info = ticker_with_div()
-        for ticker, company_name in tickers_info.items():
-            CompanyTicker.objects.get_or_create(ticker=ticker, company_name=company_name.strip())
+        company_tickers = read_csv_multithreaded()  # Use your multithreading function to get tickers info
+
+        # Bulk create CompanyTicker objects in the database
+        CompanyTicker.objects.bulk_create(company_tickers)
+
+        self.stdout.write(self.style.SUCCESS('Batch processing completed. CompanyTicker objects pushed to database.'))

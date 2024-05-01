@@ -42,8 +42,12 @@
 
 # # if __name__ == '__main__':
 # #     print(ticker_with_div())
-
+import concurrent.futures
 import os
+import logging
+from app.models import CompanyTicker
+
+logging.basicConfig(level=logging.INFO)
 
 def check_folder(directory):
     folder_path = os.path.join(directory)
@@ -71,34 +75,27 @@ def read_div():
 
     return info_list
 
-def ticker_with_div():
+def process_csv_row(row):
+    info = row.replace("\"", "").replace("\n", "").split(',')
+    ticker, company_name = info[0], "".join(info[1:])
+    logging.info(f"Processing ticker: {ticker}")
+    return CompanyTicker(ticker=ticker, company_name=company_name.strip())
+
+def read_csv_multithreaded():
     current_dir = os.path.dirname(os.path.realpath(__file__))
     directory = os.path.join(current_dir, '../../stockdata/tickers_with_dividends.csv')
-    result = {}
+    company_tickers = []
+
     with open(directory, "r") as file:
         info_file = file.readlines()
-        for info in info_file:
-            info = info.replace("\"", "").replace("\n", "").split(',')
-            if info[0] not in result:
-                result[info[0]] = "".join(info[1:])
-    return result
 
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        # Process each row in parallel using threads
+        futures = [executor.submit(process_csv_row, row) for row in info_file]
 
-if __name__ == '__main__':
-    # print(ticker_with_div())
-    ticker = ticker_with_div()
-    div = read_div()
-    differences = {}
-    for d in div:
-        oof = d[-15:]
-        if oof[0] not in ticker and oof[0] not in differences:
-            # differences.append(d[0])
-            differences[oof[0]] = d[:-15]
-    print(differences)
-    print(len(differences))
-    
-    current_dir = os.path.dirname(os.path.realpath(__file__))
-    directory = os.path.join(current_dir, '../../stockdata/tickers_with_dividends.csv')
-    with open(directory, 'a') as file:
-        for d in differences:
-            file.write()
+        # Collect results from threads and append CompanyTicker objects to the list
+        for future in concurrent.futures.as_completed(futures):
+            company_ticker = future.result()
+            company_tickers.append(company_ticker)
+
+    return company_tickers

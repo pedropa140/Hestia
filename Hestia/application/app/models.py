@@ -2,13 +2,13 @@ from django.db import models
 
 class CompanyTicker(models.Model):
     company_name = models.CharField(max_length=100, default='Unknown')
-    ticker = models.CharField(max_length=4, default='TICK', primary_key=True)
+    ticker = models.CharField(max_length=6, default='TICK', primary_key=True)
 
     def __str__(self):
         return f'{self.company_name} ({self.ticker})'
     
 class TickerData(models.Model):
-    ticker = models.CharField(max_length=4, default='TICK')
+    ticker = models.CharField(max_length=6, default='TICK')
     company_name = models.CharField(max_length=100, default='Unknown')
     start_date = models.DateField(default='1900-01-01')
     end_date = models.DateField(default='1900-01-01')

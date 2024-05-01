@@ -1,3 +1,4 @@
+import multiprocessing
 import os
 import csv
 import logging
@@ -7,51 +8,17 @@ from django.apps import apps
 from django.db import models
 from django.db import connection
 from django.db.utils import OperationalError
-from concurrent.futures import ThreadPoolExecutor, wait
+from concurrent.futures import ThreadPoolExecutor, as_completed, wait
 from django.db import transaction
 from app.models import TickerData, CompanyTicker  # Import your models from the 'app' module
 
 logging.basicConfig(level=logging.INFO) 
 
 processed_tickers = set()
-
-def create_dynamic_model(ticker_symbol):
-    class Meta:
-        db_table = f'{ticker_symbol}_data'
-
-    dynamic_model = type('DynamicTickerData', (models.Model,), {
-        'ticker': models.CharField(max_length=4),
-        'company_name': models.CharField(max_length=100),
-        'start_date': models.DateField(default='1900-01-01', primary_key=True),
-        'end_date': models.DateField(default='1900-01-01'),
-        'book_value': models.FloatField(default=-1.0),
-        'book_to_share_value': models.FloatField(default=-1.0),
-        'earnings_per_share': models.FloatField(default=-1.0),
-        'debt_ratio': models.FloatField(default=-1.0),
-        'current_ratio': models.FloatField(default=-1.0),
-        'end_open': models.FloatField(default=-1.0),
-        'dividend_yield': models.FloatField(default=-1.0),
-        'start_open': models.FloatField(default=-1.0),
-        'start_close': models.FloatField(default=-1.0),
-        'start_high': models.FloatField(default=-1.0),
-        'start_low': models.FloatField(default=-1.0),
-        'end_close': models.FloatField(default=-1.0),
-        'end_high': models.FloatField(default=-1.0),
-        'end_low': models.FloatField(default=-1.0),
-        'volume': models.FloatField(default=-1.0),
-        '__module__': __name__,
-        'Meta': Meta,
-    })
-
-    return dynamic_model
+log = ""
 
 def convert_to_float(value, default=-1.0):
-    if value.strip():  # Check if the value is not empty after stripping whitespace
-        return float(value)
-    else:
-        return default
-    
-batched_tickers = []
+    return float(value.strip()) if value.strip() else default
 
 def process_row(ftick, company_name, row):
     ticker = ftick
@@ -110,43 +77,56 @@ def get_company_name(csv_file_path):
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
             return row.get('company_name', 'Unknown').title()
-    
-def process_csv_file(csv_file_path, ftick):
-        try:
-            company_name = CompanyTicker.objects.get(ticker=ftick).company_name
-        except CompanyTicker.DoesNotExist:
-            company_name = get_company_name(csv_file_path)
-        if ftick in processed_tickers:
-            logging.info(f"Skipping {ftick} data: already processed")
-            return  # Skip processing if the ticker is already processed
-            
-        with open(csv_file_path, 'r') as file:
-            csv_reader = csv.DictReader(file)
-            # Create a ThreadPoolExecutor with 5 worker threads
-            with ThreadPoolExecutor(max_workers=30) as executor:
-                # Submit each row to be processed asynchronously
-                futures = [executor.submit(process_row, ftick, company_name, row) for row in csv_reader]
-        
-                # Wait for all futures to complete
-                for future in futures:
-                    future.result()
-                    
-                wait(futures)
 
-            logging.info(f"Processed {ftick} data")
-        
-        # Save the batched ticker data after processing CSV file
-        save_batched_ticker_data()
-          
-def save_batched_ticker_data():
-    # Use transaction.atomic() for batch saving
-    with transaction.atomic():
-        TickerData.objects.bulk_create(batched_tickers)
+batched_tickers = []
     
-    # Clear the batched_ticker_data list after saving
-    batched_tickers.clear()          
+def process_csv_file(csv_file_path):
+    ftick = os.path.basename(csv_file_path).split('.')[0]
+    
+    if ftick in processed_tickers:
+        logging.info(f"Skipping {ftick} data: already processed")
+        return
+    
+    processed_tickers.add(ftick)
+    
+    logging.info(f"{csv_file_path}")
+    batched_tickers2 = []
+    try:
+        company_name = CompanyTicker.objects.get(ticker=ftick).company_name
+    except CompanyTicker.DoesNotExist:
+        company_name = get_company_name(csv_file_path)
+        
+    with open(csv_file_path, 'r') as file:
+        csv_reader = csv.DictReader(file)
+        with ThreadPoolExecutor(max_workers=30) as executor:
+            # Submit each row to be processed asynchronously
+            futures = [executor.submit(process_row, ftick, company_name, row) for row in csv_reader]
+    
+            # Wait for all futures to complete
+            for future in futures:
+                future.result()
+                
+            wait(futures)
+        logging.info(f"Processed {ftick} data")
     
 processed_tickers_file = "processed_tickers.txt"
+
+def process_all(csv_file_paths):
+    num_cores = multiprocessing.cpu_count()
+    max_workers = 30 + num_cores * 4  # Adjust based on your system's capabilities
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit tasks for each CSV file to be processed concurrently
+        futures = [executor.submit(process_csv_file, csv_file_path) for csv_file_path in csv_file_paths]    
+        # Wait for all tasks to complete
+        for future in as_completed(futures):
+            try:
+                future.result()
+            except Exception as e:
+                logging.error(f"An error occurred: {e}")
+                
+    logging.info("Creating TickerData objects in database...")
+    TickerData.objects.bulk_create(batched_tickers)  # Save any remaining ticker data in the batched list
+
 class Command(BaseCommand):
     help = 'Create custom tables for each ticker based on CSV data'
     
@@ -168,24 +148,17 @@ class Command(BaseCommand):
         csv_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../stockdata/div_info'))
         csv_files = [f for f in os.listdir(csv_dir) if f.endswith('.csv')]
         csv_file_paths = [os.path.join(csv_dir, f) for f in csv_files]
-
-        # Process each CSV file sequentially
-        processed_tickers = self.load_processed_tickers()
-        for csv_file_path in csv_file_paths:
-            logging.info(f"{csv_file_path}")
-            try:
-                ftick = os.path.basename(csv_file_path).split('.')[0]
-                if (ftick in processed_tickers):
-                    logging.info(f"Skipping {ftick} data: already processed")
-                    continue
-                process_csv_file(csv_file_path, ftick)
-                processed_tickers.add(ftick)
-            except KeyboardInterrupt:
-                logging.info("Interrupted by user. Saving processed tickers.")
-                self.save_processed_tickers(processed_tickers)
-                raise  # Re-raise KeyboardInterrupt to exit gracefully
+        
+        processed_tickers = self.load_processed_tickers()    
             
-        self.save_processed_tickers(processed_tickers)
+        try:
+            process_all(csv_file_paths)
+        except KeyboardInterrupt:
+            logging.info("Interrupted by user. Saving processed tickers.")
+            self.save_processed_tickers(processed_tickers)
+            raise  # Re-raise KeyboardInterrupt to exit gracefully
 
-                        
+        # Save processed tickers
+        self.save_processed_tickers(processed_tickers)
+                    
                     

@@ -6,18 +6,18 @@ Hello
 
 1. Create your .venv environment through the VSCode interface or terminal.
 2. Install all requirements from `requirements.txt`.
-3. Navigate to the `application` directory from the current root.
 
 ### Setup Backend
 
+3. Navigate to the `application` directory from the current root.
 4. Setup database/backend with `py manage.py setup_db` following any necessary instructions.
 5. Start the development server with `py manage.py runserver`.
 
 ### Setup Frontend
 
-6. Navigate to `frontend` directory.
-7. Install necessary package `npm install`
-8. Run frontend `npm start`
+6. Navigate to the `frontend` directory.
+7. Install any necessary packages using `npm install`.
+8. Run frontend with `npm start`.
 
 ## Context
 

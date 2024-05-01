@@ -10,6 +10,8 @@ from django.db import connection
 from django.db.utils import OperationalError
 from concurrent.futures import ThreadPoolExecutor, as_completed, wait
 from django.db import transaction
+from django.db.models import F
+from operator import attrgetter
 from app.models import TickerData, CompanyTicker  # Import your models from the 'app' module
 
 logging.basicConfig(level=logging.INFO) 
@@ -123,7 +125,8 @@ def process_all(csv_file_paths):
                 logging.error(f"An error occurred: {e}")
                 
     logging.info("Pushing TickerData objects into database...")
-    TickerData.objects.bulk_create(batched_tickers)  # Save any remaining ticker data in the batched list
+    sorted_tickers = sorted(batched_tickers, key=attrgetter('ticker', 'start_date'))
+    TickerData.objects.bulk_create(sorted_tickers)  # Save any remaining ticker data in the batched list
 
 class Command(BaseCommand):
     help = 'Create custom tables for each ticker based on CSV data'
@@ -147,7 +150,7 @@ class Command(BaseCommand):
         csv_files = [f for f in os.listdir(csv_dir) if f.endswith('.csv')]
         csv_file_paths = [os.path.join(csv_dir, f) for f in csv_files]
         
-        processed_tickers = self.load_processed_tickers()    
+        processed_tickers = self.load_processed_tickers()
             
         try:
             process_all(csv_file_paths)

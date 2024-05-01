@@ -81,7 +81,7 @@ def get_company_name(csv_file_path):
 batched_tickers = []
     
 def process_csv_file(csv_file_path):
-    ftick = os.path.basename(csv_file_path).split('.')[0]
+    ftick = os.path.basename(csv_file_path).split('.')[0].upper()
     
     if ftick in processed_tickers:
         logging.info(f"Skipping {ftick} data: already processed")
@@ -90,7 +90,6 @@ def process_csv_file(csv_file_path):
     processed_tickers.add(ftick)
     
     logging.info(f"{csv_file_path}")
-    batched_tickers2 = []
     try:
         company_name = CompanyTicker.objects.get(ticker=ftick).company_name
     except CompanyTicker.DoesNotExist:
@@ -106,7 +105,6 @@ def process_csv_file(csv_file_path):
             for future in futures:
                 future.result()
                 
-            wait(futures)
         logging.info(f"Processed {ftick} data")
     
 processed_tickers_file = "processed_tickers.txt"
@@ -124,7 +122,7 @@ def process_all(csv_file_paths):
             except Exception as e:
                 logging.error(f"An error occurred: {e}")
                 
-    logging.info("Creating TickerData objects in database...")
+    logging.info("Pushing TickerData objects into database...")
     TickerData.objects.bulk_create(batched_tickers)  # Save any remaining ticker data in the batched list
 
 class Command(BaseCommand):

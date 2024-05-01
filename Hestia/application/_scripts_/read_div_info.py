@@ -78,6 +78,7 @@ def read_div():
 def process_csv_row(row):
     info = row.replace("\"", "").replace("\n", "").split(',')
     ticker, company_name = info[0], "".join(info[1:])
+    ticker=ticker.upper()
     logging.info(f"Processing ticker: {ticker}")
     return CompanyTicker(ticker=ticker, company_name=company_name.strip())
 

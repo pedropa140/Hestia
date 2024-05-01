@@ -10,15 +10,14 @@ Hello
 
 ### Setup Backend
 
-4. Create migrations with `py manage.py makemigrations app`.
-5. Setup database with `py manage.py setup_db` follpwing any necessary instructions.
-8. Start the development server with `py manage.py runserver`.
+4. Setup database/backend with `py manage.py setup_db` following any necessary instructions.
+5. Start the development server with `py manage.py runserver`.
 
 ### Setup Frontend
 
-7. Navigate to `frontend` directory.
-8. Install necessary package `npm install`
-9. Run frontend `npm start`
+6. Navigate to `frontend` directory.
+7. Install necessary package `npm install`
+8. Run frontend `npm start`
 
 ## Context
 

@@ -48,11 +48,6 @@ class Command(BaseCommand):
             self.stdout.write("Running populate_companies...")
             subprocess.run(["python", "manage.py", "populate_companies"])
             
-            # Wait until the CompanyTicker model is available in the database
-            while apps.get_model('app', 'CompanyTicker') is None:
-                self.stdout.write("Waiting for CompanyTicker model to appear in the database...")
-                time.sleep(1)  # Add a small delay to avoid excessive checking
-            
             # Run process_csv_files command
             self.stdout.write("Running process_csv_files...")
             subprocess.run(["python", "manage.py", "process_csv_files"])

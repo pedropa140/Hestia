@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Import Axios
+
+import { API_URL } from './constants';
 
 type Ticker = {
-  ticker: string;
-  company: string;
+    ticker: string;
+    company: string;
 };
 
 const Companies: React.FC = () => {
@@ -11,20 +14,16 @@ const Companies: React.FC = () => {
   useEffect(() => {
     const fetchTickers = async () => {
       try {
-        const response = await fetch('/api/tickers/');
-        console.log(response)
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        setTickers(data); // Assuming data is an array of Ticker objects
+        const response = await axios.get(API_URL + '/api/tickers/'); // Use Axios.get() for GET requests
+        console.log(response);
+        setTickers(response.data); // Assuming data is an array of Ticker objects (Axios automatically parses JSON)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchTickers();
-  }, []);
+  }, []); // Empty dependency array for componentDidMount effect
 
   return (
     <div>

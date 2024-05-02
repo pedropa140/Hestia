@@ -17,7 +17,6 @@ from app.models import TickerData, CompanyTicker  # Import your models from the 
 logging.basicConfig(level=logging.INFO) 
 
 processed_tickers = set()
-log = ""
 
 def convert_to_float(value, default=-1.0):
     return float(value.strip()) if value.strip() else default

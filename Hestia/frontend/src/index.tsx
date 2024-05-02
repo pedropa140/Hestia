@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Companies from "./pages/Companies/Companies";
+import Ticker from "./pages/Ticker/Ticker";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 const router = createBrowserRouter([
@@ -14,7 +15,8 @@ const router = createBrowserRouter([
         element: <Home />,
     },
     {
-        path: "/ticker/:name",
+        path: "/ticker/:tickername",
+        element: <Ticker />,
     },
     {
         path: "/companies/",

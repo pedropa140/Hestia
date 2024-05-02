@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { API_URL } from "./constants";
+import { API_URL } from "../../constants";
 import _ from "lodash"; // Import lodash
 
 type Ticker = {

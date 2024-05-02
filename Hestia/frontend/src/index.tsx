@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Companies from "./Companies";
+import Companies from "./pages/Companies/Companies";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 const router = createBrowserRouter([
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     {
         path: "/companies/",
         element: <Companies />,
-    }
+    },
 ]);
 root.render(
     <React.StrictMode>

@@ -59,6 +59,23 @@ const Companies: React.FC = () => {
 
   const getPageNumbers = () => {
     const pageNumbers = [];
+    // visibleTickers length == 0 only push current and prev page
+    if (visibleTickers.length === 0) {
+        // Display only the current and previous 2 pages, or 1 minimum
+        for (let i = currentPage - 1; i <= currentPage && i <= totalPages; i++) {
+          if (i > 0) {
+            pageNumbers.push(
+              <li key={i} className={`page-item ${i === currentPage ? 'active' : ''}`}>
+                <a className="page-link" href="#" onClick={() => setCurrentPage(i)}>
+                  {i}
+                </a>
+              </li>
+            );
+          }
+        }
+        return pageNumbers;
+      }
+
     for (let i = currentPage - 1; i <= currentPage + 1 && i <= totalPages; i++) {
       if (i > 0) {
         pageNumbers.push(
@@ -103,33 +120,41 @@ const Companies: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {visibleTickers.map((ticker) => (
-                    <tr key={ticker.ticker} onClick={() => handleRowClick(ticker.ticker)} style={{ cursor: 'pointer' }}>
-                      <td>{ticker.ticker}</td>
-                      <td>{ticker.company}</td>
+                  {visibleTickers.length > 0 ? (
+                    visibleTickers.map((ticker) => (
+                      <tr key={ticker.ticker} onClick={() => handleRowClick(ticker.ticker)} style={{ cursor: 'pointer' }}>
+                        <td>{ticker.ticker}</td>
+                        <td>{ticker.company}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={2}>No data available.</td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
           </div>
-          <div className="card-footer">
-            <nav>
-              <ul className="pagination pagination-sm mb-0 justify-content-center">
-                <li className="page-item">
-                  <a className="page-link" aria-label="Previous" href="#" onClick={handlePrevPage}>
-                    <span aria-hidden="true">«</span>
-                  </a>
-                </li>
-                {getPageNumbers()}
-                <li className="page-item">
-                  <a className="page-link" aria-label="Next" href="#" onClick={handleNextPage}>
-                    <span aria-hidden="true">»</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          {totalPages > 0 && (
+            <div className="card-footer">
+              <nav>
+                <ul className="pagination pagination-sm mb-0 justify-content-center">
+                  <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                    <a className="page-link" aria-label="Previous" href="#" onClick={handlePrevPage}>
+                      <span aria-hidden="true">«</span>
+                    </a>
+                  </li>
+                  {getPageNumbers()}
+                  <li className={`page-item ${visibleTickers.length == 0 ? 'disabled' : ''}`}>
+                    <a className="page-link" aria-label="Next" href="#" onClick={handleNextPage}>
+                      <span aria-hidden="true">»</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          )}
         </div>
       </div>
     </div>

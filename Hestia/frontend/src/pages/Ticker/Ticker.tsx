@@ -1,14 +1,38 @@
-import React, { useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { API_URL } from "../../constants";
+
+interface data {
+    ticker: string;
+    company_name: string;
+    start_date: string;
+    end_date: string;
+    book_value: number;
+    book_to_share: number;
+    earnings_per_share: number;
+    debt_ratio: number;
+    current_ratio: number;
+    dividend_yield: number;
+    start_open: number;
+    start_high: number;
+    end_open: number;
+    end_close: number;
+    end_high: number;
+}
 
 function Ticker() {
     const { tickername } = useParams();
 
+    const [Data, setData] = useState<data[]>([]);
+
     useEffect(() => {
         return () => {};
-    }, []);
-
-    async function getTicker() {}
+    }, [Data]);
+    async function getCharts() {}
+    async function getTicker() {
+        let data = await axios.get(API_URL + "api/ticker-data/" + tickername);
+    }
 
     return (
         <div className="row justify-content-center align-content-center full-page">
@@ -28,22 +52,44 @@ function Ticker() {
                     </div>
                     <div className="card-body">
                         <div className="table-responsive">
-                            {/* <table className="table table-striped table-hover">
-                                <thead>
+                            <table className="table table-striped table-hover">
+                                {/* <thead>
                                     <tr>
                                         <th>Ticker</th>
                                         <th>Company Name</th>
                                     </tr>
-                                </thead>
+                                </thead> */}
                                 <tbody>
-                                    {visibleTickers.map((ticker) => (
-                                        <tr key={ticker.ticker}>
-                                            <td>{ticker.ticker}</td>
-                                            <td>{ticker.company}</td>
-                                        </tr>
-                                    ))}
+                                    <tr>
+                                        <td>
+                                            <img></img>
+                                            <div className="text-center">Book to Share</div>
+                                        </td>
+                                        <td>
+                                            <img></img>
+                                            <div className="text-center">Current Ratio</div>
+                                        </td>
+                                        <td>
+                                            <img></img>
+                                            <div className="text-center">Debt Ratio</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img></img>
+                                            <div className="text-center">Dividend Yield</div>
+                                        </td>
+                                        <td>
+                                            <img></img>
+                                            <div className="text-center">Earnings Per Share</div>
+                                        </td>
+                                        <td>
+                                            <img></img>
+                                            <div className="text-center">Stock Price</div>
+                                        </td>
+                                    </tr>
                                 </tbody>
-                            </table> */}
+                            </table>
                         </div>
                     </div>
                     <div className="card-footer">

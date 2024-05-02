@@ -3,21 +3,24 @@ Read Me
 Hello
 
 ## How to run
-
-1. Create your `.venv` environment through the VSCode interface or terminal.
-2. Install all requirements from `requirements.txt`.
+*Make sure your `venv` has not been created*
+1. Global install necessary packages 
+   `pip install Django django-cors-headers`
+   `pip install -U scikit-learn`
+2. Create your `.venv` environment through the VSCode interface or terminal.
+3. Install all requirements from `requirements.txt`.
 
 ### Setup Backend
 
-3. Navigate to the `application` directory from the current root.
-4. Setup database/backend with `py manage.py setup_db` following any necessary instructions.
-5. Start the development server with `py manage.py runserver`.
+4. Navigate to the `application` directory from the current root.
+5. Setup database/backend with `py manage.py setup_db` following any necessary instructions.
+6. Start the development server with `py manage.py runserver`.
 
 ### Setup Frontend
 
-6. Navigate to the `frontend` directory.
-7. Install any necessary packages using `npm install`.
-8. Run frontend with `npm start`.
+7. Navigate to the `frontend` directory.
+8. Install any necessary packages using `npm install`.
+9. Run frontend with `npm start`.
 
 ## Context
 

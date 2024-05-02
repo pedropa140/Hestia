@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../constants';
 import _ from 'lodash'; // Import lodash
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 type Ticker = {
   ticker: string;
@@ -51,6 +52,11 @@ const Companies: React.FC = () => {
     )
     .slice(startIndex, startIndex + itemsPerPage);
 
+  const handleRowClick = (ticker: string) => {
+    // Redirect to the correct ticker page when a row is clicked
+    window.location.href = `/ticker/${ticker}`;
+  };
+
   const getPageNumbers = () => {
     const pageNumbers = [];
     for (let i = currentPage - 1; i <= currentPage + 1 && i <= totalPages; i++) {
@@ -86,6 +92,10 @@ const Companies: React.FC = () => {
           <div className="card-body">
             <div className="table-responsive">
               <table className="table table-striped table-hover">
+                <colgroup>
+                  <col style={{ width: '20%' }} />
+                  <col style={{ width: '80%' }} />
+                </colgroup>
                 <thead>
                   <tr>
                     <th>Ticker</th>
@@ -94,7 +104,7 @@ const Companies: React.FC = () => {
                 </thead>
                 <tbody>
                   {visibleTickers.map((ticker) => (
-                    <tr key={ticker.ticker}>
+                    <tr key={ticker.ticker} onClick={() => handleRowClick(ticker.ticker)} style={{ cursor: 'pointer' }}>
                       <td>{ticker.ticker}</td>
                       <td>{ticker.company}</td>
                     </tr>

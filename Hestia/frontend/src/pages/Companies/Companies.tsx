@@ -51,6 +51,22 @@ const Companies: React.FC = () => {
     )
     .slice(startIndex, startIndex + itemsPerPage);
 
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    for (let i = currentPage - 1; i <= currentPage + 1 && i <= totalPages; i++) {
+      if (i > 0) {
+        pageNumbers.push(
+          <li key={i} className={`page-item ${i === currentPage ? 'active' : ''}`}>
+            <a className="page-link" href="#" onClick={() => setCurrentPage(i)}>
+              {i}
+            </a>
+          </li>
+        );
+      }
+    }
+    return pageNumbers;
+  };
+
   return (
     <div className="row justify-content-center">
       <div className="col-xl-10 col-xxl-9">
@@ -95,21 +111,7 @@ const Companies: React.FC = () => {
                     <span aria-hidden="true">«</span>
                   </a>
                 </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    2
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    3
-                  </a>
-                </li>
+                {getPageNumbers()}
                 <li className="page-item">
                   <a className="page-link" aria-label="Next" href="#" onClick={handleNextPage}>
                     <span aria-hidden="true">»</span>

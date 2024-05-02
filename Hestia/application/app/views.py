@@ -98,8 +98,7 @@ def get_ticker_data(request, ticker):
     
 def get_book_to_share_picture(request, ticker):
     try:
-        book = plt
-        book.figure()
+        book = plt.figure()
         # plt.plot([1, 2, 3, 4])
         # plt.ylabel('many numbers')
         ticker = ticker.upper()
@@ -110,7 +109,7 @@ def get_book_to_share_picture(request, ticker):
         for data_point in ticker_data:
             start_date.append(data_point.start_date)
             book_to_share_value.append(data_point.book_to_share_value)
-        book.plot(start_date, book_to_share_value, label='dividend_yield_ratio')
+        book.plot(start_date, book_to_share_value, label='book_to_share')
         book.xlabel('Date')
         book.ylabel('Book to Share Value Ratio')
         book.title(f'{ticker.upper()}: Book to Share Value Over Time')
@@ -143,7 +142,7 @@ def get_current_ratio_picture(request, ticker):
         for data_point in ticker_data:
             start_date.append(data_point.start_date)
             current_ratio.append(data_point.current_ratio)
-        current.plot(start_date, current_ratio, label='dividend_yield_ratio')
+        current.plot(start_date, current_ratio, label='current_ratio')
         current.xlabel('Date')
         current.ylabel('Current Ratio')
         current.title(f'{ticker.upper()}: Current Ratio Over Time')

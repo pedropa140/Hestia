@@ -4,10 +4,13 @@ Hello
 
 ## How to run
 *Make sure your `venv` has not been created*
-1. Setup Django install `pip install Django`
-2. Setup corsheaders `pip install django-cors-headers`
-3. Create your `.venv` environment through the VSCode interface or terminal.
-4. Install all requirements from `requirements.txt`.
+1. Global install necessary packages 
+   `pip install Django django-cors-headers`
+   `pip install -U scikit-learn`\
+2. Setup Django install `pip install Django`
+3. Setup corsheaders `pip install django-cors-headers`
+4. Create your `.venv` environment through the VSCode interface or terminal.
+5. Install all requirements from `requirements.txt`.
 
 ### Setup Backend
 

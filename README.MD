@@ -6,23 +6,21 @@ Hello
 *Make sure your `venv` has not been created*
 1. Global install necessary packages 
    `pip install Django django-cors-headers`
-   `pip install -U scikit-learn`\
-2. Setup Django install `pip install Django`
-3. Setup corsheaders `pip install django-cors-headers`
-4. Create your `.venv` environment through the VSCode interface or terminal.
-5. Install all requirements from `requirements.txt`.
+   `pip install -U scikit-learn`
+2. Create your `.venv` environment through the VSCode interface or terminal.
+3. Install all requirements from `requirements.txt`.
 
 ### Setup Backend
 
-5. Navigate to the `application` directory from the current root.
-6. Setup database/backend with `py manage.py setup_db` following any necessary instructions.
-7. Start the development server with `py manage.py runserver`.
+4. Navigate to the `application` directory from the current root.
+5. Setup database/backend with `py manage.py setup_db` following any necessary instructions.
+6. Start the development server with `py manage.py runserver`.
 
 ### Setup Frontend
 
-8. Navigate to the `frontend` directory.
-9. Install any necessary packages using `npm install`.
-10. Run frontend with `npm start`.
+7. Navigate to the `frontend` directory.
+8. Install any necessary packages using `npm install`.
+9. Run frontend with `npm start`.
 
 ## Context
 

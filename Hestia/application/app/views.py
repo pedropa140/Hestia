@@ -83,8 +83,110 @@ def get_ticker_data(request, ticker):
                 'current_ratio': data_point.current_ratio,
                 'dividend_yield': data_point.dividend_yield,
                 'start_open': data_point.start_open,
-                'start_high': data_point.start_high,
                 'start_close': data_point.start_close,
+                'start_high': data_point.start_high,
+                'end_open': data_point.end_open,
+                'end_close': data_point.end_close,
+                'end_high': data_point.end_high,
+            })
+        return JsonResponse(data, safe=False)
+    except TickerData.DoesNotExist:
+        return JsonResponse({'error': 'Ticker data not found'}, status=404)
+    
+def get_book_to_share_picture(request, ticker):
+    try:
+        ticker = ticker.upper()
+        ticker_data = TickerData.objects.filter(ticker=ticker)
+        data = []
+        for data_point in ticker_data:
+            data.append({
+                'ticker': data_point.ticker,
+                'company_name': data_point.company_name,
+                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
+                'book_to_share': data_point.book_to_share_value,
+                'earnings_per_share': data_point.earnings_per_share,
+            })
+        return JsonResponse(data, safe=False)
+    except TickerData.DoesNotExist:
+        return JsonResponse({'error': 'Ticker data not found'}, status=404)
+
+def get_current_ratio_picture(request, ticker):
+    try:
+        ticker = ticker.upper()
+        ticker_data = TickerData.objects.filter(ticker=ticker)
+        data = []
+        for data_point in ticker_data:
+            data.append({
+                'ticker': data_point.ticker,
+                'company_name': data_point.company_name,
+                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
+                'current_ratio': data_point.current_ratio,
+            })
+        return JsonResponse(data, safe=False)
+    except TickerData.DoesNotExist:
+        return JsonResponse({'error': 'Ticker data not found'}, status=404)
+
+def get_debt_ratio_picture(request, ticker):
+    try:
+        ticker = ticker.upper()
+        ticker_data = TickerData.objects.filter(ticker=ticker)
+        data = []
+        for data_point in ticker_data:
+            data.append({
+                'ticker': data_point.ticker,
+                'company_name': data_point.company_name,
+                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
+                'debt_ratio': data_point.debt_ratio,
+            })
+        return JsonResponse(data, safe=False)
+    except TickerData.DoesNotExist:
+        return JsonResponse({'error': 'Ticker data not found'}, status=404)
+
+def get_dividend_yield_picture(request, ticker):
+    try:
+        ticker = ticker.upper()
+        ticker_data = TickerData.objects.filter(ticker=ticker)
+        data = []
+        for data_point in ticker_data:
+            data.append({
+                'ticker': data_point.ticker,
+                'company_name': data_point.company_name,
+                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
+                'dividend_yield': data_point.dividend_yield,
+            })
+        return JsonResponse(data, safe=False)
+    except TickerData.DoesNotExist:
+        return JsonResponse({'error': 'Ticker data not found'}, status=404)
+
+def get_earnings_per_share_picture(request, ticker):
+    try:
+        ticker = ticker.upper()
+        ticker_data = TickerData.objects.filter(ticker=ticker)
+        data = []
+        for data_point in ticker_data:
+            data.append({
+                'ticker': data_point.ticker,
+                'company_name': data_point.company_name,
+                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
+                'earnings_per_share': data_point.earnings_per_share,
+            })
+        return JsonResponse(data, safe=False)
+    except TickerData.DoesNotExist:
+        return JsonResponse({'error': 'Ticker data not found'}, status=404)
+
+def get_stock_prices_pictures(request, ticker):
+    try:
+        ticker = ticker.upper()
+        ticker_data = TickerData.objects.filter(ticker=ticker)
+        data = []
+        for data_point in ticker_data:
+            data.append({
+                'ticker': data_point.ticker,
+                'company_name': data_point.company_name,
+                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
+                'start_open': data_point.start_open,
+                'start_close': data_point.start_close,
+                'start_high': data_point.start_high,
                 'end_open': data_point.end_open,
                 'end_close': data_point.end_close,
                 'end_high': data_point.end_high,

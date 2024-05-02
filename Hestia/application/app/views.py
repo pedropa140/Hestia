@@ -7,6 +7,9 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import matplotlib.pyplot as plt
+import io
+import base64
 
 def indexHelp(request):
 
@@ -95,103 +98,209 @@ def get_ticker_data(request, ticker):
     
 def get_book_to_share_picture(request, ticker):
     try:
+        plt.figure()
+        # plt.plot([1, 2, 3, 4])
+        # plt.ylabel('many numbers')
         ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)
-        data = []
+        plt.figure()
+        start_date = []
+        book_to_share_value = []
         for data_point in ticker_data:
-            data.append({
-                'ticker': data_point.ticker,
-                'company_name': data_point.company_name,
-                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
-                'book_to_share': data_point.book_to_share_value,
-                'earnings_per_share': data_point.earnings_per_share,
-            })
-        return JsonResponse(data, safe=False)
+            start_date.append(data_point.start_date)
+            book_to_share_value.append(data_point.book_to_share_value)
+        plt.plot(start_date, book_to_share_value, label='dividend_yield_ratio')
+        plt.xlabel('Date')
+        plt.ylabel('Book to Share Value Ratio')
+        plt.title(f'{ticker.upper()}: Book to Share Value Over Time')
+        plt.legend()
+        plt.xticks(rotation=45, ha='right')
+
+        plt.gcf().set_size_inches(20, 10)
+        
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        plt.close()
+        
+        # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
+        return HttpResponse(buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 
 def get_current_ratio_picture(request, ticker):
     try:
+        plt.figure()
+        # plt.plot([1, 2, 3, 4])
+        # plt.ylabel('many numbers')
         ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)
-        data = []
+        plt.figure()
+        start_date = []
+        current_ratio = []
         for data_point in ticker_data:
-            data.append({
-                'ticker': data_point.ticker,
-                'company_name': data_point.company_name,
-                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
-                'current_ratio': data_point.current_ratio,
-            })
-        return JsonResponse(data, safe=False)
+            start_date.append(data_point.start_date)
+            current_ratio.append(data_point.current_ratio)
+        plt.plot(start_date, current_ratio, label='dividend_yield_ratio')
+        plt.xlabel('Date')
+        plt.ylabel('Current Ratio')
+        plt.title(f'{ticker.upper()}: Current Ratio Over Time')
+        plt.legend()
+        plt.xticks(rotation=45, ha='right')
+
+        plt.gcf().set_size_inches(20, 10)
+        
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        plt.close()
+        
+        # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
+        return HttpResponse(buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 
 def get_debt_ratio_picture(request, ticker):
     try:
+        plt.figure()
+        # plt.plot([1, 2, 3, 4])
+        # plt.ylabel('many numbers')
         ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)
-        data = []
+        plt.figure()
+        start_date = []
+        debt_ratio = []
         for data_point in ticker_data:
-            data.append({
-                'ticker': data_point.ticker,
-                'company_name': data_point.company_name,
-                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
-                'debt_ratio': data_point.debt_ratio,
-            })
-        return JsonResponse(data, safe=False)
+            start_date.append(data_point.start_date)
+            debt_ratio.append(data_point.debt_ratio)
+        plt.plot(start_date, debt_ratio, label='dividend_yield_ratio')
+        plt.xlabel('Date')
+        plt.ylabel('Debt Ratio')
+        plt.title(f'{ticker.upper()}: Debt Ratio Over Time')
+        plt.legend()
+        plt.xticks(rotation=45, ha='right')
+
+        plt.gcf().set_size_inches(20, 10)
+        
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        plt.close()
+        
+        # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
+        return HttpResponse(buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 
 def get_dividend_yield_picture(request, ticker):
     try:
+        plt.figure()
+        # plt.plot([1, 2, 3, 4])
+        # plt.ylabel('many numbers')
         ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)
-        data = []
+        plt.figure()
+        start_date = []
+        dividend_yield = []
         for data_point in ticker_data:
-            data.append({
-                'ticker': data_point.ticker,
-                'company_name': data_point.company_name,
-                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
-                'dividend_yield': data_point.dividend_yield,
-            })
-        return JsonResponse(data, safe=False)
+            start_date.append(data_point.start_date)
+            dividend_yield.append(data_point.dividend_yield)
+        plt.plot(start_date, dividend_yield, label='dividend_yield_ratio')
+        plt.xlabel('Date')
+        plt.ylabel('Dividend Yield Ratio')
+        plt.title(f'{ticker.upper()}: Dividend Yield Ratio Over Time')
+        plt.legend()
+        plt.xticks(rotation=45, ha='right')
+
+        plt.gcf().set_size_inches(20, 10)
+        
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        plt.close()
+        
+        # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
+        return HttpResponse(buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 
 def get_earnings_per_share_picture(request, ticker):
     try:
+        plt.figure()
+        # plt.plot([1, 2, 3, 4])
+        # plt.ylabel('many numbers')
         ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)
-        data = []
+        plt.figure()
+        start_date = []
+        earnings_per_share = []
         for data_point in ticker_data:
-            data.append({
-                'ticker': data_point.ticker,
-                'company_name': data_point.company_name,
-                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
-                'earnings_per_share': data_point.earnings_per_share,
-            })
-        return JsonResponse(data, safe=False)
+            start_date.append(data_point.start_date)
+            earnings_per_share.append(data_point.earnings_per_share)
+        plt.plot(start_date, earnings_per_share, label='dividend_yield_ratio')
+        plt.xlabel('Date')
+        plt.ylabel('Earnings Per Share')
+        plt.title(f'{ticker.upper()}: Earnings Per Share Over Time')
+        plt.legend()
+        plt.xticks(rotation=45, ha='right')
+
+        plt.gcf().set_size_inches(20, 10)
+        
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        plt.close()
+        
+        # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
+        return HttpResponse(buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 
 def get_stock_prices_pictures(request, ticker):
     try:
+        plt.figure()
+        # plt.plot([1, 2, 3, 4])
+        # plt.ylabel('many numbers')
         ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)
-        data = []
+        plt.figure()
+        start_date = []
+        start_open = []
+        start_close = []
+        start_high = []
+        end_open = []
+        end_close = []
+        end_high = []
         for data_point in ticker_data:
-            data.append({
-                'ticker': data_point.ticker,
-                'company_name': data_point.company_name,
-                'start_date': data_point.start_date.strftime('%Y-%m-%d'),
-                'start_open': data_point.start_open,
-                'start_close': data_point.start_close,
-                'start_high': data_point.start_high,
-                'end_open': data_point.end_open,
-                'end_close': data_point.end_close,
-                'end_high': data_point.end_high,
-            })
-        return JsonResponse(data, safe=False)
+            start_date.append(data_point.start_date)
+            start_open.append(data_point.start_open)
+            start_close.append(data_point.start_close)
+            start_high.append(data_point.start_high)
+            
+            end_open.append(data_point.end_open)
+            end_close.append(data_point.end_close)
+            end_high.append(data_point.end_high)
+        plt.plot(start_date, start_open, label='start_open')
+        plt.plot(start_date, start_close, label='start_close')
+        plt.plot(start_date, start_high, label='start_high')
+        plt.plot(start_date, end_open, label='end_open')
+        plt.plot(start_date, end_close, label='end_close')
+        plt.plot(start_date, end_high, label='end_high')
+        plt.xlabel('Date')
+        plt.ylabel('Earnings Per Share')
+        plt.title(f'{ticker.upper()}: Earnings Per Share Over Time')
+        plt.legend()
+        plt.xticks(rotation=45, ha='right')
+
+        plt.gcf().set_size_inches(20, 10)
+        
+        buffer = io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        plt.close()
+        
+        # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
+        return HttpResponse(buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 

@@ -33,7 +33,7 @@ def process_row(ftick, company_name, row):
     debt_ratio = convert_to_float(row.get('debt_ratio', '-1.0'))
     current_ratio = convert_to_float(row.get('current_ratio', '-1.0'))
     end_open = convert_to_float(row.get('end_open', '-1.0'))
-    dividend_yield = convert_to_float(row.get('dividend_yield', '-1.0'))
+    dividend_yield = convert_to_float(row.get('dividend_yield_ratio', '-1.0'))
     start_open = convert_to_float(row.get('start_open', '-1.0'))
     start_close = convert_to_float(row.get('start_close', '-1.0'))
     start_high = convert_to_float(row.get('start_high', '-1.0'))
@@ -42,7 +42,6 @@ def process_row(ftick, company_name, row):
     end_high = convert_to_float(row.get('end_high', '-1.0'))
     end_low = convert_to_float(row.get('end_low', '-1.0'))
     volume = convert_to_float(row.get('volume', '-1.0'))
-
     try:
         start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
         end_date = datetime.strptime(end_date, '%Y-%m-%d').date()

@@ -91,6 +91,37 @@ function Ticker() {
                                             <div className="text-center">Stock Price</div>
                                         </td>
                                     </tr>
+                                    {/* <tr>
+                                        <td>
+                                            <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/book_to_share"}></img>
+                                            <div className="text-center">Book to Share</div>
+                                        </td>
+                                        <td>
+                                            <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/current_ratio"}></img>
+                                            <div className="text-center">Current Ratio</div>
+                                        </td>
+                                        <td>
+                                            <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/debt_ratio"}></img>
+                                            <div className="text-center">Debt Ratio</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/dividend_yield"}></img>
+                                            <div className="text-center">Dividend Yield</div>
+                                        </td>
+                                        <td>
+                                            <img
+                                                className="chart-img"
+                                                src={API_URL + `/api/ticker/` + tickername + "/chart/earnings_per_share"}
+                                            ></img>
+                                            <div className="text-center">Earnings Per Share</div>
+                                        </td>
+                                        <td>
+                                            <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/stock_prices"}></img>
+                                            <div className="text-center">Stock Price</div>
+                                        </td> 
+                                    </tr> */}
                                 </tbody>
                             </table>
                         </div>

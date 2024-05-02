@@ -77,7 +77,12 @@ const Companies: React.FC = () => {
                                 </thead>
                                 <tbody>
                                     {visibleTickers.map((ticker) => (
-                                        <tr key={ticker.ticker}>
+                                        <tr
+                                            key={ticker.ticker}
+                                            onClick={() => {
+                                                window.location.href = "/ticker/" + ticker.ticker;
+                                            }}
+                                        >
                                             <td>{ticker.ticker}</td>
                                             <td>{ticker.company}</td>
                                         </tr>

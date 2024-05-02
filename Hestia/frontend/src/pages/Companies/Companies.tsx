@@ -19,13 +19,14 @@ const Companies: React.FC = () => {
       try {
         const response = await axios.get(API_URL + '/api/tickers/');
         setTickers(response.data); // Assuming data is an array of Ticker objects
+        setCurrentPage(1); // Move back to the first page when new search happens
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchTickers();
-  }, []);
+  }, [searchTerm]); // Listen to changes in searchTerm
 
   const totalPages = Math.ceil(tickers.length / itemsPerPage);
 

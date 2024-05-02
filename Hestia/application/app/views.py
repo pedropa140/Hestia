@@ -98,30 +98,31 @@ def get_ticker_data(request, ticker):
     
 def get_book_to_share_picture(request, ticker):
     try:
-        plt.figure()
+        book = plt
+        book.figure()
         # plt.plot([1, 2, 3, 4])
         # plt.ylabel('many numbers')
         ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)
-        plt.figure()
+        book.figure()
         start_date = []
         book_to_share_value = []
         for data_point in ticker_data:
             start_date.append(data_point.start_date)
             book_to_share_value.append(data_point.book_to_share_value)
-        plt.plot(start_date, book_to_share_value, label='dividend_yield_ratio')
-        plt.xlabel('Date')
-        plt.ylabel('Book to Share Value Ratio')
-        plt.title(f'{ticker.upper()}: Book to Share Value Over Time')
-        plt.legend()
-        plt.xticks(rotation=45, ha='right')
+        book.plot(start_date, book_to_share_value, label='dividend_yield_ratio')
+        book.xlabel('Date')
+        book.ylabel('Book to Share Value Ratio')
+        book.title(f'{ticker.upper()}: Book to Share Value Over Time')
+        book.legend()
+        book.xticks(rotation=45, ha='right')
 
-        plt.gcf().set_size_inches(20, 10)
+        book.gcf().set_size_inches(20, 10)
         
         book_to_share_buffer = io.BytesIO()
-        plt.savefig(book_to_share_buffer, format='png')
+        book.savefig(book_to_share_buffer, format='png')
         book_to_share_buffer.seek(0)
-        plt.close()
+        book.close()
         
         # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
         return HttpResponse(book_to_share_buffer, content_type='image/png')
@@ -130,30 +131,31 @@ def get_book_to_share_picture(request, ticker):
 
 def get_current_ratio_picture(request, ticker):
     try:
-        plt.figure()
+        current = plt
+        current.figure()
         # plt.plot([1, 2, 3, 4])
         # plt.ylabel('many numbers')
         ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)
-        plt.figure()
+        current.figure()
         start_date = []
         current_ratio = []
         for data_point in ticker_data:
             start_date.append(data_point.start_date)
             current_ratio.append(data_point.current_ratio)
-        plt.plot(start_date, current_ratio, label='dividend_yield_ratio')
-        plt.xlabel('Date')
-        plt.ylabel('Current Ratio')
-        plt.title(f'{ticker.upper()}: Current Ratio Over Time')
-        plt.legend()
-        plt.xticks(rotation=45, ha='right')
+        current.plot(start_date, current_ratio, label='dividend_yield_ratio')
+        current.xlabel('Date')
+        current.ylabel('Current Ratio')
+        current.title(f'{ticker.upper()}: Current Ratio Over Time')
+        current.legend()
+        current.xticks(rotation=45, ha='right')
 
-        plt.gcf().set_size_inches(20, 10)
+        current.gcf().set_size_inches(20, 10)
         
         current_ratio_buffer = io.BytesIO()
-        plt.savefig(current_ratio_buffer, format='png')
+        current.savefig(current_ratio_buffer, format='png')
         current_ratio_buffer.seek(0)
-        plt.close()
+        current.close()
         
         # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
         return HttpResponse(current_ratio_buffer, content_type='image/png')

@@ -84,6 +84,7 @@ def get_ticker_data(request, ticker):
                 'dividend_yield': data_point.dividend_yield,
                 'start_open': data_point.start_open,
                 'start_high': data_point.start_high,
+                'start_close': data_point.start_close,
                 'end_open': data_point.end_open,
                 'end_close': data_point.end_close,
                 'end_high': data_point.end_high,

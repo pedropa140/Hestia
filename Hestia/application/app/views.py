@@ -118,13 +118,13 @@ def get_book_to_share_picture(request, ticker):
 
         plt.gcf().set_size_inches(20, 10)
         
-        buffer = io.BytesIO()
-        plt.savefig(buffer, format='png')
-        buffer.seek(0)
+        book_to_share_buffer = io.BytesIO()
+        plt.savefig(book_to_share_buffer, format='png')
+        book_to_share_buffer.seek(0)
         plt.close()
         
         # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
-        return HttpResponse(buffer, content_type='image/png')
+        return HttpResponse(book_to_share_buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 
@@ -150,13 +150,13 @@ def get_current_ratio_picture(request, ticker):
 
         plt.gcf().set_size_inches(20, 10)
         
-        buffer = io.BytesIO()
-        plt.savefig(buffer, format='png')
-        buffer.seek(0)
+        current_ratio_buffer = io.BytesIO()
+        plt.savefig(current_ratio_buffer, format='png')
+        current_ratio_buffer.seek(0)
         plt.close()
         
         # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
-        return HttpResponse(buffer, content_type='image/png')
+        return HttpResponse(current_ratio_buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 
@@ -182,13 +182,13 @@ def get_debt_ratio_picture(request, ticker):
 
         plt.gcf().set_size_inches(20, 10)
         
-        buffer = io.BytesIO()
-        plt.savefig(buffer, format='png')
-        buffer.seek(0)
+        debt_buffer = io.BytesIO()
+        plt.savefig(debt_buffer, format='png')
+        debt_buffer.seek(0)
         plt.close()
         
         # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
-        return HttpResponse(buffer, content_type='image/png')
+        return HttpResponse(debt_buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 
@@ -214,13 +214,13 @@ def get_dividend_yield_picture(request, ticker):
 
         plt.gcf().set_size_inches(20, 10)
         
-        buffer = io.BytesIO()
-        plt.savefig(buffer, format='png')
-        buffer.seek(0)
+        dividend_buffer = io.BytesIO()
+        plt.savefig(dividend_buffer, format='png')
+        dividend_buffer.seek(0)
         plt.close()
         
         # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
-        return HttpResponse(buffer, content_type='image/png')
+        return HttpResponse(dividend_buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 
@@ -246,13 +246,13 @@ def get_earnings_per_share_picture(request, ticker):
 
         plt.gcf().set_size_inches(20, 10)
         
-        buffer = io.BytesIO()
-        plt.savefig(buffer, format='png')
-        buffer.seek(0)
+        earnings_buffer = io.BytesIO()
+        plt.savefig(earnings_buffer, format='png')
+        earnings_buffer.seek(0)
         plt.close()
         
         # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
-        return HttpResponse(buffer, content_type='image/png')
+        return HttpResponse(earnings_buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 
@@ -294,13 +294,13 @@ def get_stock_prices_pictures(request, ticker):
 
         plt.gcf().set_size_inches(20, 10)
         
-        buffer = io.BytesIO()
-        plt.savefig(buffer, format='png')
-        buffer.seek(0)
+        stock_buffer = io.BytesIO()
+        plt.savefig(stock_buffer, format='png')
+        stock_buffer.seek(0)
         plt.close()
         
         # return JsonResponse({'path': f"../stockdata/stockpictures/debt_ratio_picture/{ticker}.png"})
-        return HttpResponse(buffer, content_type='image/png')
+        return HttpResponse(stock_buffer, content_type='image/png')
     except TickerData.DoesNotExist:
         return JsonResponse({'error': 'Ticker data not found'}, status=404)
 

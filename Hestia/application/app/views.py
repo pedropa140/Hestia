@@ -301,7 +301,7 @@ def get_ticker_data(request, ticker):
 
 def chart(request, ticker, chartname):
     try:
-        fig = Figure()
+        fig = Figure(figsize=(20, 10))
         ax = fig.add_subplot(1,1,1)
         ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)

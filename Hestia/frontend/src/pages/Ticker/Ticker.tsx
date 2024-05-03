@@ -27,9 +27,9 @@ function Ticker() {
     const [Data, setData] = useState<data[]>([]);
 
     useEffect(() => {
-        return () => {};
+        return () => { };
     }, [Data]);
-    async function getCharts() {}
+    async function getCharts() { }
     async function getTicker() {
         let data = await axios.get(API_URL + "api/ticker-data/" + tickername);
     }
@@ -62,33 +62,42 @@ function Ticker() {
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/book_to_share"}></img>
-                                            <div className="text-center">Book to Share</div>
+                                            <a href={API_URL + `/api/ticker/` + tickername + "/chart/book_to_share"}>
+                                                <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/book_to_share"}></img>
+                                                <div className="text-center">Book to Share</div>
+                                            </a>
                                         </td>
                                         <td>
-                                            <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/current_ratio"}></img>
-                                            <div className="text-center">Current Ratio</div>
-                                        </td>
-                                        <td>
-                                            <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/debt_ratio"}></img>
-                                            <div className="text-center">Debt Ratio</div>
+                                            <a href={API_URL + `/api/ticker/` + tickername + "/chart/current_ratio"}>
+                                                <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/current_ratio"}></img>
+                                                <div className="text-center">Current Ratio</div></a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/dividend_yield"}></img>
-                                            <div className="text-center">Dividend Yield</div>
+                                            <a href={API_URL + `/api/ticker/` + tickername + "/chart/debt_ratio"}>
+                                                <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/debt_ratio"}></img>
+                                                <div className="text-center">Debt Ratio</div></a>
                                         </td>
                                         <td>
-                                            <img
-                                                className="chart-img"
-                                                src={API_URL + `/api/ticker/` + tickername + "/chart/earnings_per_share"}
-                                            ></img>
-                                            <div className="text-center">Earnings Per Share</div>
+                                            <a href={API_URL + `/api/ticker/` + tickername + "/chart/dividend_yield"}>
+                                                <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/dividend_yield"}></img>
+                                                <div className="text-center">Dividend Yield</div></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href={API_URL + `/api/ticker/` + tickername + "/chart/earnings_per_share"}>
+                                                <img
+                                                    className="chart-img"
+                                                    src={API_URL + `/api/ticker/` + tickername + "/chart/earnings_per_share"}
+                                                ></img>
+                                                <div className="text-center">Earnings Per Share</div></a>
                                         </td>
                                         <td>
-                                            <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/stock_prices"}></img>
-                                            <div className="text-center">Stock Price</div>
+                                            <a href={API_URL + `/api/ticker/` + tickername + "/chart/stock_prices"}>
+                                                <img className="chart-img" src={API_URL + `/api/ticker/` + tickername + "/chart/stock_prices"}></img>
+                                                <div className="text-center">Stock Price</div></a>
                                         </td>
                                     </tr>
                                     {/* <tr>

@@ -1,30 +1,30 @@
 .main,
 .main * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 .main {
-  background: #deb887;
-  height: 1080px;
-  position: relative;
-  overflow: hidden;
+    background: #deb887;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
 }
 
 .main-page-outline {
-  background: #d2b48c;
-  width: 1651px;
-  height: 800px; /* Set a fixed height for the main-page-outline */
-  position: absolute;
-  left: calc(50% - 826px);
-  top: calc(50% - 438px);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
-  overflow: auto; /* Make the main-page-outline scrollable */
-  backdrop-filter: blur(2px);
-  border-radius: 20px; /* Add border-radius for rounded corners */
+    background: #d2b48c;
+    width: 1651px;
+    height: 800px; /* Set a fixed height for the main-page-outline */
+    position: absolute;
+    left: calc(50% - 826px);
+    top: calc(50% - 438px);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+    overflow: auto; /* Make the main-page-outline scrollable */
+    backdrop-filter: blur(2px);
+    border-radius: 20px; /* Add border-radius for rounded corners */
 }
 .graph-frame {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
 }
 
 .graph-container {
@@ -33,62 +33,61 @@
     /* You can adjust the height and other styles as needed */
 }
 .graph {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .input {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: flex-end; /* Align content to the right */
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end; /* Align content to the right */
 }
 
 .textbox input {
-  width: 200px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 2px solid #974c29;
-  font-size: 16px;
+    width: 200px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #974c29;
+    font-size: 16px;
 }
 
 .submit-button {
-  background: #fff2f3;
-  border-radius: 20px;
-  padding: 10px 20px;
-  cursor: pointer;
+    background: #fff2f3;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 
-
-
 .submit-button:hover {
-  background: #88c5af; /* Change background color on hover */
-  transition: background 0.3s ease; /* Add smooth transition */
+    background: #88c5af; /* Change background color on hover */
+    transition: background 0.3s ease; /* Add smooth transition */
 }
 
 .text-box {
-  text-align: center;
-  margin-top: 20px; /* Adjust as needed */
+    text-align: center;
+    margin-top: 20px; /* Adjust as needed */
 }
 
 .bold-text {
-  font-weight: bold;font-size: 32px;
+    font-weight: bold;
+    font-size: 32px;
 }
 .header-text-box {
-  text-align: center;
-  margin-bottom: 20px; /* Adjust as needed */
-  font-weight: bold; /* Make the text bold */
+    text-align: center;
+    margin-bottom: 20px; /* Adjust as needed */
+    font-weight: bold; /* Make the text bold */
 }
 
 .header-text {
     text-align: center;
-  font-size: 64px; /* Adjust font size as needed */
+    font-size: 64px; /* Adjust font size as needed */
 }

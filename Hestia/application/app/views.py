@@ -2,6 +2,7 @@ import os
 from django.conf import settings
 from django.shortcuts import render
 from django.views import View
+from matplotlib.figure import Figure
 from .models import CompanyTicker, TickerData
 from django.core.paginator import Paginator
 from django.http import HttpResponse, JsonResponse
@@ -300,7 +301,7 @@ def get_ticker_data(request, ticker):
 
 def chart(request, ticker, chartname):
     try:
-        fig = plt.figure()
+        fig = Figure()
         ax = fig.add_subplot(1,1,1)
         ticker = ticker.upper()
         ticker_data = TickerData.objects.filter(ticker=ticker)

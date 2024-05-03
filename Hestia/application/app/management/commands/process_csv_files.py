@@ -22,8 +22,12 @@ def convert_to_float(value, default=-1.0):
     return float(value.strip()) if value.strip() else default
 
 def process_row(ftick, company_name, row):
-    ticker = ftick
-    company_name = company_name
+    if (not USE_EXISTING):
+        ticker = ftick
+        company_name = company_name.title()
+    else:
+        ticker = row.get('ticker', 'TICK')
+        company_name = row.get('company_name', 'Unknown').title()
     start_date = row.get('start_date', '1900-01-01')
     end_date = row.get('end_date', '1900-01-01')
     book_value = convert_to_float(row.get('book_value', '-1.0'))
@@ -81,26 +85,32 @@ def get_company_name(csv_file_path):
 batched_tickers = []
     
 def process_csv_file(csv_file_path):
-    ftick = os.path.basename(csv_file_path).split('.')[0].upper()
+    ftick = "TICK"
+    company_name = "COMPANY_NAME"
+    if (not USE_EXISTING):
+        ftick = os.path.basename(csv_file_path).split('.')[0].upper()
+
+        if ftick in processed_tickers:
+            logging.info(f"Skipping {ftick} data: already processed")
+            return
     
-    if ftick in processed_tickers:
-        logging.info(f"Skipping {ftick} data: already processed")
-        return
+        processed_tickers.add(ftick)
     
-    processed_tickers.add(ftick)
-    
-    logging.info(f"{csv_file_path}")
-    try:
-        company_name = CompanyTicker.objects.get(ticker=ftick).company_name
-    except CompanyTicker.DoesNotExist:
-        company_name = get_company_name(csv_file_path)
+        logging.info(f"{csv_file_path}")
+        try:
+            company_name = CompanyTicker.objects.get(ticker=ftick).company_name
+        except CompanyTicker.DoesNotExist:
+            company_name = get_company_name(csv_file_path)
         
     with open(csv_file_path, 'r') as file:
         csv_reader = csv.DictReader(file)
+            
         with ThreadPoolExecutor(max_workers=30) as executor:
             # Submit each row to be processed asynchronously
-            futures = [executor.submit(process_row, ftick, company_name, row) for row in csv_reader]
-    
+            if (USE_EXISTING):
+                futures = [executor.submit(process_row, ftick, company_name, row) for row in csv_reader]
+            else:
+                futures = [executor.submit(process_row, "", "", row) for row in csv_reader]
             # Wait for all futures to complete
             for future in futures:
                 future.result()
@@ -126,6 +136,7 @@ def process_all(csv_file_paths):
     sorted_tickers = sorted(batched_tickers, key=attrgetter('ticker', 'start_date'))
     TickerData.objects.bulk_create(sorted_tickers)  # Save any remaining ticker data in the batched list
 
+USE_EXISTING = True
 class Command(BaseCommand):
     help = 'Create custom tables for each ticker based on CSV data'
     
@@ -144,20 +155,28 @@ class Command(BaseCommand):
                 f.write(f"{ticker}\n")
 
     def handle(self, *args, **options):
-        csv_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../stockdata/div_info'))
-        csv_files = [f for f in os.listdir(csv_dir) if f.endswith('.csv')]
-        csv_file_paths = [os.path.join(csv_dir, f) for f in csv_files]
-        
         processed_tickers = self.load_processed_tickers()
+        if (USE_EXISTING):
+            logging.info("Using existing full_csv file")
+            csv_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../stockdata/'))
+            csv_file_path = csv_dir + '/full_combined_quarterly_reports.csv'
+            process_csv_file(csv_file_path)
+            logging.info("Pushing all TickerData objects to db.")
+            sorted_tickers = sorted(batched_tickers, key=attrgetter('ticker', 'start_date'))
+            TickerData.objects.bulk_create(sorted_tickers)
+        else:
+            csv_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../stockdata/div_info'))
+            csv_files = [f for f in os.listdir(csv_dir) if f.endswith('.csv')]
+            csv_file_paths = [os.path.join(csv_dir, f) for f in csv_files]
+        
             
-        try:
-            process_all(csv_file_paths)
-        except KeyboardInterrupt:
-            logging.info("Interrupted by user. Saving processed tickers.")
-            self.save_processed_tickers(processed_tickers)
-            raise  # Re-raise KeyboardInterrupt to exit gracefully
+            try:
+                process_all(csv_file_paths)
+            except KeyboardInterrupt:
+                logging.info("Interrupted by user. Saving processed tickers.")
+                self.save_processed_tickers(processed_tickers)
+                raise  # Re-raise KeyboardInterrupt to exit gracefully
 
         # Save processed tickers
         self.save_processed_tickers(processed_tickers)
-                    
-                    
+

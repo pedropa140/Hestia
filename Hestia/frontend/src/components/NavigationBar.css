@@ -1,0 +1,16 @@
+.custom-navbar {
+  background-color: #9A7F5A; /* Custom background color with transparency */
+  border-radius: 10px; /* Rounded edges */
+}
+
+.custom-nav .nav-link {
+  color: #ffa500; /* Warm orange color */
+  padding: 10px 20px; /* Custom padding */
+}
+
+.custom-nav .nav-link:hover {
+  color: #ffa500;
+  background-color: tan; /* Change background color to tan */
+  border-radius: 10px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}

@@ -1,0 +1,3 @@
+company_name,ticker,start_date,end_date,book_value,book_to_share_value,earnings_per_share,debt_ratio,current_ratio,dividend_yield_ratio,start_open,start_close,start_high,end_open,end_close,end_high
+"ramaco resources, inc.",METC,2023-07-01,2023-09-30,352598000.0,,,0.4547785237805123,1.1874728081624633,,8.51,8.3,8.44,10.89,10.8,10.99
+"ramaco resources, inc.",METC,2023-04-01,2023-06-30,337105000.0,,,0.48953725898747863,1.2516155373157443,,8.8,8.7473,8.81,8.1,8.05,8.43

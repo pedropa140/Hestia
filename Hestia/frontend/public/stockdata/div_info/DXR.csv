@@ -1,0 +1,3 @@
+company_name,ticker,start_date,end_date,book_value,book_to_share_value,earnings_per_share,debt_ratio,current_ratio,dividend_yield_ratio,start_open,start_close,start_high,end_open,end_close,end_high
+daxor corp,DXR,2011-10-01,2011-12-31,36216591.0,,,0.5775252292330926,1.6581241481156461,,,,,,,
+daxor corp,DXR,2011-07-01,2011-09-30,37622052.0,8.917236347915372,-0.9916196297439267,0.5737005584490037,1.6705690494846044,,,,,,,

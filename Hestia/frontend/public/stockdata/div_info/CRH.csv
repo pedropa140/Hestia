@@ -1,0 +1,2 @@
+company_name,ticker,start_date,end_date,book_value,book_to_share_value,earnings_per_share,debt_ratio,current_ratio,dividend_yield_ratio,start_open,start_close,start_high,end_open,end_close,end_high
+crh public ltd co,CRH,2023-10-01,2023-12-31,21621000000.0,,,0.5445237944763951,1.6863077998601819,,56.47,54.12,54.73,68.91,68.91,69.16

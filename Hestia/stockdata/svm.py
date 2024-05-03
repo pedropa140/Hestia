@@ -10,30 +10,24 @@ data = pd.read_csv('full_combined_quarterly_reports.csv')
 
 grouped_data = data.groupby('market_cap_category')
 
-
 svm_models = {}
-
-
-
 
 for group_name, group_data in grouped_data:
     print("Training SVM model for market cap category:", group_name)
     group_data = group_data[['company_name', 'ticker', 'book_value', 'book_to_share_value', 
                              'earnings_per_share', 'debt_ratio', 'current_ratio', 
-                             'dividend_yield_ratio', 'price_movement_percent', 
+                             'dividend_yield_ratio', 
                              'indicator']]
     group_data.dropna(inplace=True)
     scaler = MinMaxScaler()
 
     numerical_columns = ['book_value', 'book_to_share_value', 'earnings_per_share', 
-                         'debt_ratio', 'current_ratio', 'dividend_yield_ratio', 
-                         'price_movement_percent']
+                         'debt_ratio', 'current_ratio', 'dividend_yield_ratio']
 
     group_data[numerical_columns] = scaler.fit_transform(group_data[numerical_columns])
     
     X = group_data[['book_value', 'book_to_share_value', 'earnings_per_share', 
-                    'debt_ratio', 'current_ratio', 'dividend_yield_ratio', 
-                    'price_movement_percent']]
+                    'debt_ratio', 'current_ratio', 'dividend_yield_ratio']]
     y = group_data['indicator']
     
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -46,7 +40,7 @@ for group_name, group_data in grouped_data:
     }
 
   
-    grid_search = GridSearchCV(estimator=SVC(), param_grid=param_grid, cv=5, n_jobs=-1)
+    grid_search = GridSearchCV(estimator=SVC(), param_grid=param_grid, cv=5, n_jobs=-1, refit=True, verbose=3)
 
 
     grid_search.fit(X_train, y_train)

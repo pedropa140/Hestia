@@ -2,8 +2,11 @@ import flask
 import joblib
 import numpy as np
 import pandas as pd
+from flask import Flask
+from flask_cors import CORS
 
-app = flask.Flask(__name__, template_folder='templates')
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 data = pd.read_csv('../frontend/public/stockdata/full_combined_quarterly_reports.csv', header=0, delimiter=',')
 data_reduced = data[['ticker', 'market_cap_category']]
 data_unique_tickers = data_reduced.drop_duplicates(subset=['ticker'])
@@ -18,6 +21,7 @@ svm_models = {
 }
 
 def preprocess_input(data):
+    print(data)
     ticker = data[-1]
     data_array = np.array(data[:-1], dtype=float)
     return ticker, data_array

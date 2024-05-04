@@ -34,8 +34,16 @@ const Prediction = () => {
         const headers = csvData[0];
         let data = csvData.slice(1);
 
-        console.log(data[0]);
-        const response = await fetch(`/model`, { method: "POST", body: data[0] });
+        console.log(data[1]);
+        let d = [data[1][5],data[1][6],data[1][7],data[1][8], data[1][9],data[1][1]]
+        console.log(d)
+       const response = await fetch(`http://localhost:5000/model`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json", // Specify that you're sending JSON data
+            },
+            body: JSON.stringify(d), // Convert the array to JSON string
+        });
         const body = await response.json();
         if (body.result === 1) {
             setResult(`${ticker} Is a Strong Buy`);

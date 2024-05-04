@@ -48,15 +48,15 @@ const Prediction = () => {
         });
         const body = await response.json();
         let pred = body.prediction
-        if (pred === 1) {
-            setResultText(`${ticker} Is a Strong Buy`);
-            setResultClass("green"); // Set the class for green color
-        } else if (pred === 0) {
-            setResultText(`${ticker} Is a Strong Hold`);
-            setResultClass("blue"); // Set the class for blue color
-        } else if (pred === -1) {
-            setResultText(`${ticker} Is a Strong Sell`);
-            setResultClass("red"); // Set the class for red color
+        if (pred == 1) {
+            setResultText(`${ticker} is considered a Buy`);
+            setResultClass("green");
+        } else if (pred == 0) {
+            setResultText(`${ticker} is considered a Hold`);
+            setResultClass("blue"); 
+        } else if (pred == -1) {
+            setResultText(`${ticker} is considered a Sell`);
+            setResultClass("red");
         } else {
             setResultText("Unknown");
             setResultClass(""); // Set no specific class

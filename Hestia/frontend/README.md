@@ -5,10 +5,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 In the project directory, you can run:
+set NODE_OPTIONS=--openssl-legacy-provider
 
 ### `npm start`
 
-set NODE_OPTIONS=--openssl-legacy-provider
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

@@ -45,11 +45,12 @@ const Prediction = () => {
             body: JSON.stringify(d), // Convert the array to JSON string
         });
         const body = await response.json();
-        if (body.result === 1) {
+        let pred = body.prediction
+        if (pred == 1) {
             setResult(`${ticker} Is a Strong Buy`);
-        } else if (body.result === 0) {
+        } else if (pred == 0) {
             setResult(`${ticker} Is a Strong Hold`);
-        } else if (body.result === -1) {
+        } else if (pred == -1) {
             setResult(`${ticker} Is a Strong Sell`);
         } else {
             setResult(`Unknown`);

@@ -35,7 +35,7 @@ const Prediction = () => {
         let data = csvData.slice(1);
 
         console.log(data[1]);
-        let d = data[1][4],[data[1][5],data[1][6],data[1][7],data[1][8], data[1][9],data[1][1]]
+        let d = [data[1][4],data[1][5],data[1][6],data[1][7],data[1][8], data[1][9],data[1][1]]
         console.log(d)
        const response = await fetch(`http://localhost:5000/model`, {
             method: "POST",

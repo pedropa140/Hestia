@@ -91,3 +91,14 @@
     text-align: center;
     font-size: 64px; /* Adjust font size as needed */
 }
+.green {
+    color: green;
+}
+
+.blue {
+    color: blue;
+}
+
+.red {
+    color: red;
+}

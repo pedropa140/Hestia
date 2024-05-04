@@ -14,6 +14,8 @@ const Prediction = () => {
     const [Model, setModel] = useState("");
     const [ticker, setTicker] = useState("");
     const [Result, setResult] = useState("Please enter a ticker!");
+    const [resultText, setResultText] = useState("");
+    const [resultClass, setResultClass] = useState("");
     useEffect(() => {}, [ticker]);
     const fetchCSV = async (tickername: string) => {
         console.log("Fetching");
@@ -46,14 +48,18 @@ const Prediction = () => {
         });
         const body = await response.json();
         let pred = body.prediction
-        if (pred == 1) {
-            setResult(`${ticker} Is a Strong Buy`);
-        } else if (pred == 0) {
-            setResult(`${ticker} Is a Strong Hold`);
-        } else if (pred == -1) {
-            setResult(`${ticker} Is a Strong Sell`);
+        if (pred === 1) {
+            setResultText(`${ticker} Is a Strong Buy`);
+            setResultClass("green"); // Set the class for green color
+        } else if (pred === 0) {
+            setResultText(`${ticker} Is a Strong Hold`);
+            setResultClass("blue"); // Set the class for blue color
+        } else if (pred === -1) {
+            setResultText(`${ticker} Is a Strong Sell`);
+            setResultClass("red"); // Set the class for red color
         } else {
-            setResult(`Unknown`);
+            setResultText("Unknown");
+            setResultClass(""); // Set no specific class
         }
     }
     const handleSubmit = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -61,6 +67,19 @@ const Prediction = () => {
         console.log("Ticker:", ticker);
         updatePrediction();
     };
+
+    const getResultColor = (result) => {
+    switch (result) {
+        case '1':
+            return 'green';
+        case '-1':
+            return 'red';
+        case '0':
+            return 'blue';
+        default:
+            return 'black'; // default color if result is not -1, 0, or 1
+    }
+};
     return (
         <div className="main">
             <NavigationBar />
@@ -81,8 +100,8 @@ const Prediction = () => {
                         <p className="bold-text">{ticker.toUpperCase()}</p>
                     </div>
                 </div>
-                <div className="main-body">
-                    <div className="main-body-text">{Result}</div>
+                <div className="main-body" style={{ textAlign: 'center' }}>
+                    <div className={`main-body-text ${resultClass}`} style={{ fontSize: '54px', textAlign: 'center' }}>{resultText}</div>
                 </div>
             </div>
         </div>
